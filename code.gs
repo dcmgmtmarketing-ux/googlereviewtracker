@@ -9,13 +9,28 @@ const FIRST_ROW  = 5;
 const LAST_ROW   = 24;
 
 function doGet(e) {
-  // ── API call dari GitHub Pages ──
-  if (e && e.parameter && e.parameter.action === 'getData') {
+  var p = e.parameter || {};
+
+  if (p.action === 'getData') {
     var data = getData();
+    var json = JSON.stringify(data);
+    // JSONP — bypass CORS
+    if (p.callback) {
+      return ContentService
+        .createTextOutput(p.callback + '(' + json + ');')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
     return ContentService
-      .createTextOutput(JSON.stringify(data))
+      .createTextOutput(json)
       .setMimeType(ContentService.MimeType.JSON);
   }
+
+  return HtmlService
+    .createHtmlOutputFromFile('Index')
+    .setTitle('DC Clean — Customer Engagement Challenge')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1.0');
+}
   // ── Web App biasa (existing) ──
   return HtmlService
     .createHtmlOutputFromFile('Index')
