@@ -50,6 +50,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .hdr-photo{width:72px;height:72px;border-radius:50%;border:2.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.18);margin-left:-22px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:rgba(255,255,255,.9);flex-shrink:0;position:relative}
 .hdr-photo:first-child{margin-left:0}
 .hdr-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hdr-photo.gold{background:#92650a;border-color:#FFD700}
+.hdr-photo.silver{background:#5a6472;border-color:#C0C0C0}
+.hdr-photo.bronze{background:#7a3e10;border-color:#CD7F32}
+.medal-inner{display:flex;flex-direction:column;align-items:center;gap:1px;pointer-events:none}
+.medal-emoji{font-size:24px;line-height:1}
+.medal-init{font-size:9px;font-weight:800;color:rgba(255,255,255,.9);letter-spacing:.5px}
+.medal-count{font-size:9px;color:rgba(255,255,255,.6);font-weight:700}
 .btn-cfg{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:7px 16px;border-radius:var(--r2);cursor:pointer;font-size:13px;font-weight:600}
 .btn-cfg:hover{background:rgba(255,255,255,.25)}
 
@@ -231,12 +238,7 @@ textarea.fc{resize:vertical;min-height:60px}
       <div class="hdr-live"><span class="hdr-live-dot"></span>&nbsp; Live</div>
     </div>
     <div class="hdr-right">
-      <div class="hdr-photos">
-        <div class="hdr-photo"><span>ED</span></div>
-        <div class="hdr-photo"><span>EV</span></div>
-        <div class="hdr-photo"><span>ID</span></div>
-        <div class="hdr-photo"><span>+12</span></div>
-      </div>
+      <div class="hdr-photos" id="hdr-medals"></div>
       <button class="btn-cfg" onclick="openSettings()">&#9881; Settings</button>
     </div>
   </div>
@@ -671,7 +673,33 @@ function exportCSV(){
 // ── UTILS ──
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2400); }
-function renderAll(){ renderSummary(); renderList(); populateWorkerDrop(); }
+// ── HEADER MEDALS ──
+function renderHeaderMedals(){
+  const el = document.getElementById('hdr-medals');
+  if(!el) return;
+  const MEDALS = [{cls:'gold',emoji:'🥇'},{cls:'silver',emoji:'🥈'},{cls:'bronze',emoji:'🥉'}];
+  const ranked = db.workers
+    .map(w => ({w, count: db.reviews.filter(r => r.wid === w.id).length}))
+    .sort((a,b) => b.count - a.count)
+    .slice(0,3);
+  el.innerHTML = MEDALS.map((m,i) => {
+    const entry = ranked[i];
+    const initials = entry && entry.count > 0
+      ? entry.w.name.split(' ').map(p=>p[0]).slice(0,2).join('')
+      : '—';
+    const count = entry && entry.count > 0 ? entry.count : 0;
+    const title = entry && entry.count > 0 ? `${entry.w.name} — ${count} reviews` : 'No data yet';
+    return `<div class="hdr-photo ${m.cls}" title="${title}">
+      <div class="medal-inner">
+        <span class="medal-emoji">${m.emoji}</span>
+        <span class="medal-init">${initials}</span>
+        ${count > 0 ? `<span class="medal-count">${count}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAll(){ renderSummary(); renderList(); populateWorkerDrop(); renderHeaderMedals(); }
 
 loadDB();
 document.getElementById('f-date').value=today();
