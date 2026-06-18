@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,11 +31,26 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
 
 /* ── Header ── */
-.hdr{background:var(--navy);color:#fff;height:54px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.hdr-brand{display:flex;align-items:baseline;gap:10px}
-.hdr-brand h1{font-size:17px;font-weight:700;letter-spacing:-.3px}
-.hdr-brand span{font-size:12px;opacity:.65;font-weight:400}
-.btn-cfg{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:5px 14px;border-radius:var(--r2);cursor:pointer;font-size:13px}
+.hdr{background:linear-gradient(135deg,#0c2340 0%,#1a3c5e 45%,#1e5282 100%);color:#fff;position:sticky;top:0;z-index:100;overflow:hidden}
+.hdr-wrap{max-width:980px;margin:0 auto;padding:26px 24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}
+.hdr-wrap::before{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.05);right:260px;top:-170px;pointer-events:none}
+.hdr-wrap::after{content:'';position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.05);right:60px;top:-60px;pointer-events:none}
+.hdr-left{flex:1}
+.hdr-logo{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.hdr-icon{width:54px;height:54px;flex-shrink:0;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;letter-spacing:-1px;color:#fff}
+.hdr-brand{display:flex;flex-direction:column;gap:2px}
+.hdr-brand-top{font-size:10px;font-weight:700;opacity:.65;letter-spacing:2px}
+.hdr-brand-name{font-size:30px;font-weight:900;letter-spacing:-.5px;line-height:1}
+.hdr-desc{font-size:12px;opacity:.6;margin-bottom:14px}
+.hdr-live{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.35);color:#86efac;padding:4px 13px;border-radius:20px;font-size:11px;font-weight:700}
+.hdr-live-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:livepulse 2s ease-in-out infinite}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:14px;flex-shrink:0}
+.hdr-photos{display:flex;align-items:center}
+.hdr-photo{width:72px;height:72px;border-radius:50%;border:2.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.18);margin-left:-22px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:rgba(255,255,255,.9);flex-shrink:0;position:relative}
+.hdr-photo:first-child{margin-left:0}
+.hdr-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.btn-cfg{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:7px 16px;border-radius:var(--r2);cursor:pointer;font-size:13px;font-weight:600}
 .btn-cfg:hover{background:rgba(255,255,255,.25)}
 
 /* ── Layout ── */
@@ -48,21 +63,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .card-body{padding:18px 20px}
 
 /* ── Summary ── */
-.sum-total{display:inline-block;background:var(--navy);color:#fff;border-radius:var(--r2);padding:10px 20px;margin-bottom:16px}
-.sum-total-num{font-size:28px;font-weight:800;line-height:1}
-.sum-total-lbl{font-size:11px;opacity:.75;margin-top:2px}
-.sum-section{margin-bottom:12px}
-.sum-section:last-child{margin-bottom:0}
-.sum-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:7px}
-.sum-chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:8px 16px;border-radius:var(--r2);border:1px solid transparent;min-width:80px}
-.chip-num{font-size:20px;font-weight:800;line-height:1.1}
-.chip-lbl{font-size:11px;margin-top:1px;font-weight:500}
-.chip.g{background:var(--g-bg);border-color:#bfdbfe;color:var(--g-tx)}
-.chip.f{background:var(--f-bg);border-color:#ddd6fe;color:var(--f-tx)}
-.chip.v{background:var(--v-bg);border-color:#fbcfe8;color:var(--v-tx)}
-.chip.m{background:var(--m-bg);border-color:#fde68a;color:var(--m-tx)}
-.chip.br{background:#f1f5f9;border-color:var(--border2);color:var(--text)}
+.sum-bigrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:14px}
+.sum-bigrow:last-child{margin-bottom:0}
+.bigcard{border-radius:10px;border:1px solid transparent;padding:22px 16px;text-align:center}
+.bigcard-num{font-size:42px;font-weight:800;line-height:1;letter-spacing:-1px}
+.bigcard-lbl{font-size:12px;font-weight:700;margin-top:8px}
+.bigcard.total{background:var(--navy);border-color:var(--navy2);grid-column:1/-1;padding:28px}
+.bigcard.total .bigcard-num{color:#fff;font-size:58px}
+.bigcard.total .bigcard-lbl{color:rgba(255,255,255,.6)}
+.bigcard.br{background:#f1f5f9;border-color:var(--border2)}
+.bigcard.br .bigcard-num{color:var(--navy)}
+.bigcard.br .bigcard-lbl{color:var(--text2)}
+.bigcard.g{background:var(--g-bg);border-color:#bfdbfe}
+.bigcard.g .bigcard-num{color:var(--g-tx)}
+.bigcard.g .bigcard-lbl{color:var(--g-tx);opacity:.8}
+.bigcard.f{background:var(--f-bg);border-color:#ddd6fe}
+.bigcard.f .bigcard-num{color:var(--f-tx)}
+.bigcard.f .bigcard-lbl{color:var(--f-tx);opacity:.8}
+.bigcard.v{background:var(--v-bg);border-color:#fbcfe8}
+.bigcard.v .bigcard-num{color:var(--v-tx)}
+.bigcard.v .bigcard-lbl{color:var(--v-tx);opacity:.8}
+.bigcard.m{background:var(--m-bg);border-color:#fde68a}
+.bigcard.m .bigcard-num{color:var(--m-tx)}
+.bigcard.m .bigcard-lbl{color:var(--m-tx);opacity:.8}
+.sum-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px;margin-top:4px}
 
 /* ── Form ── */
 .edit-alert{display:none;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--r2);padding:8px 14px;font-size:12px;color:#92400e;margin-bottom:14px;align-items:center;gap:10px}
@@ -70,6 +94,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .fgrid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
 .fg{display:flex;flex-direction:column;gap:5px}
 .fg.w2{grid-column:span 2}
+.fg.w4{grid-column:1/-1}
 .flabel{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:.1px}
 .fc{padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r2);font-size:13px;font-family:inherit;color:var(--text);background:#fff;width:100%;transition:border-color .15s}
 .fc:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.12)}
@@ -108,7 +133,7 @@ textarea.fc{resize:vertical;min-height:60px}
 .wcc.f{background:var(--f-bg);color:var(--f-tx)}
 .wcc.v{background:var(--v-bg);color:var(--v-tx)}
 .wcc.m{background:var(--m-bg);color:var(--m-tx)}
-.wtotal{font-size:12px;font-weight:700;color:var(--text2);flex-shrink:0;min-width:52px;text-align:right}
+.wtotal{font-size:12px;font-weight:700;color:var(--text2);flex-shrink:0;min-width:60px;text-align:right}
 
 /* ── Review rows ── */
 .rcontainer{display:none}
@@ -123,7 +148,8 @@ textarea.fc{resize:vertical;min-height:60px}
 .rcat.m{background:var(--m-bg);color:var(--m-tx)}
 .rmain{flex:1;min-width:0}
 .rcust{font-size:13px;font-weight:700}
-.rmeta{font-size:11px;color:var(--text2);margin-top:1px}
+.raddr{font-size:11px;color:var(--text2);margin-top:1px}
+.rmeta{font-size:11px;color:var(--text3);margin-top:1px}
 .rnotes{font-size:11px;color:var(--text3);margin-top:2px;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
 .rstatus{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;white-space:nowrap}
 .rstatus.done{background:var(--done-bg);color:var(--done-tx)}
@@ -177,6 +203,7 @@ textarea.fc{resize:vertical;min-height:60px}
 /* ── Responsive ── */
 @media(max-width:700px){
   .fgrid{grid-template-columns:1fr 1fr}
+  .fg.w4{grid-column:1/-1}
   .spanel{width:100%;right:-100%}
   .wcounts{display:none}
   .main{padding:14px 10px}
@@ -184,60 +211,81 @@ textarea.fc{resize:vertical;min-height:60px}
 }
 @media(max-width:480px){
   .fgrid{grid-template-columns:1fr}
-  .fg.w2{grid-column:span 1}
+  .fg.w2,.fg.w4{grid-column:span 1}
 }
 </style>
 </head>
 <body>
 
 <header class="hdr">
-  <div class="hdr-brand">
-    <h1>DC Clean</h1>
-    <span>Review Tracker</span>
+  <div class="hdr-wrap">
+    <div class="hdr-left">
+      <div class="hdr-logo">
+        <div class="hdr-icon">DC</div>
+        <div class="hdr-brand">
+          <span class="hdr-brand-top">DC CLEAN</span>
+          <span class="hdr-brand-name">REVIEW TRACKER</span>
+        </div>
+      </div>
+      <div class="hdr-desc">Track customer reviews &nbsp;&middot;&nbsp; Google &amp; Facebook &nbsp;&middot;&nbsp; All Branches</div>
+      <div class="hdr-live"><span class="hdr-live-dot"></span>&nbsp; Live</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-photos">
+        <div class="hdr-photo"><span>ED</span></div>
+        <div class="hdr-photo"><span>EV</span></div>
+        <div class="hdr-photo"><span>ID</span></div>
+        <div class="hdr-photo"><span>+12</span></div>
+      </div>
+      <button class="btn-cfg" onclick="openSettings()">&#9881; Settings</button>
+    </div>
   </div>
-  <button class="btn-cfg" onclick="openSettings()">⚙ Tetapan</button>
 </header>
 
 <main class="main">
 
-  <!-- ═══ BAHAGIAN 1 : RINGKASAN ═══ -->
+  <!-- ═══ SECTION 1 : SUMMARY ═══ -->
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title">Ringkasan</span>
+      <span class="card-title">Summary</span>
     </div>
     <div class="card-body" id="summary"></div>
   </div>
 
-  <!-- ═══ BAHAGIAN 2 : FORM KEYIN ═══ -->
+  <!-- ═══ SECTION 2 : ENTRY FORM ═══ -->
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title" id="form-title">Tambah Review</span>
+      <span class="card-title" id="form-title">Add Review</span>
     </div>
     <div class="card-body">
       <div class="edit-alert" id="edit-alert">
-        <span>✏ Mode Edit — kemaskini review yang dipilih</span>
-        <button onclick="cancelEdit()" style="margin-left:auto;padding:3px 10px;background:#fff;border:1px solid #fed7aa;border-radius:4px;color:#92400e;font-size:11px;cursor:pointer;font-family:inherit">Batal</button>
+        <span>✏ Edit Mode — updating selected review</span>
+        <button onclick="cancelEdit()" style="margin-left:auto;padding:3px 10px;background:#fff;border:1px solid #fed7aa;border-radius:4px;color:#92400e;font-size:11px;cursor:pointer;font-family:inherit">Cancel</button>
       </div>
       <div class="fgrid">
         <div class="fg w2">
-          <label class="flabel">Nama Pekerja *</label>
+          <label class="flabel">Worker Name *</label>
           <select class="fc" id="f-worker" onchange="onWorkerChange()">
-            <option value="">— Pilih Pekerja —</option>
+            <option value="">— Select Worker —</option>
           </select>
           <div id="branch-tag-wrap" style="display:none">
             <span class="branch-tag">📍 <span id="branch-tag-text"></span></span>
           </div>
         </div>
         <div class="fg w2">
-          <label class="flabel">Nama Pelanggan *</label>
-          <input class="fc" type="text" id="f-cust" placeholder="Nama pelanggan...">
+          <label class="flabel">Customer Name *</label>
+          <input class="fc" type="text" id="f-cust" placeholder="Customer name...">
+        </div>
+        <div class="fg w4">
+          <label class="flabel">Customer Address</label>
+          <input class="fc" type="text" id="f-addr" placeholder="Street, area, city...">
         </div>
         <div class="fg">
-          <label class="flabel">Kategori *</label>
+          <label class="flabel">Category *</label>
           <select class="fc" id="f-cat">
             <option value="Google">Google Review</option>
             <option value="Facebook">Facebook Review</option>
-            <option value="Video">Video Testimoni</option>
+            <option value="Video">Video Testimonial</option>
             <option value="Mattress">Mattress</option>
           </select>
         </div>
@@ -250,41 +298,41 @@ textarea.fc{resize:vertical;min-height:60px}
           </select>
         </div>
         <div class="fg">
-          <label class="flabel">Tarikh</label>
+          <label class="flabel">Date</label>
           <input class="fc" type="date" id="f-date">
         </div>
         <div class="fg">
-          <label class="flabel">Catatan (optional)</label>
-          <input class="fc" type="text" id="f-notes" placeholder="Catatan tambahan...">
+          <label class="flabel">Notes (optional)</label>
+          <input class="fc" type="text" id="f-notes" placeholder="Additional notes...">
         </div>
       </div>
       <div class="form-footer">
-        <button class="btn-cancel" id="btn-cancel" onclick="cancelEdit()" style="display:none">Batal</button>
-        <button class="btn-save" id="btn-save" onclick="submitForm()">Simpan Review</button>
+        <button class="btn-cancel" id="btn-cancel" onclick="cancelEdit()" style="display:none">Cancel</button>
+        <button class="btn-save" id="btn-save" onclick="submitForm()">Save Review</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══ BAHAGIAN 3 : SENARAI REVIEW ═══ -->
+  <!-- ═══ SECTION 3 : REVIEW LIST ═══ -->
   <div class="card">
     <div class="card-hdr">
-      <span class="card-title">Senarai Review</span>
+      <span class="card-title">Review List</span>
       <span id="list-count" style="font-size:12px;color:var(--text2)"></span>
     </div>
     <div class="fbar">
-      <input type="text" class="fsearch" id="f-search" placeholder="Cari pekerja atau pelanggan..." oninput="renderList()">
+      <input type="text" class="fsearch" id="f-search" placeholder="Search worker or customer..." oninput="renderList()">
       <select class="fsel" id="f-fbranch" onchange="renderList()">
-        <option value="">Semua Branch</option>
+        <option value="">All Branches</option>
       </select>
       <select class="fsel" id="f-fcat" onchange="renderList()">
-        <option value="">Semua Kategori</option>
+        <option value="">All Categories</option>
         <option value="Google">Google</option>
         <option value="Facebook">Facebook</option>
         <option value="Video">Video</option>
         <option value="Mattress">Mattress</option>
       </select>
       <select class="fsel" id="f-fstatus" onchange="renderList()">
-        <option value="">Semua Status</option>
+        <option value="">All Status</option>
         <option value="Done">Done</option>
         <option value="Pending">Pending</option>
         <option value="Follow Up">Follow Up</option>
@@ -302,30 +350,30 @@ textarea.fc{resize:vertical;min-height:60px}
 <div class="overlay" id="overlay" onclick="closeSettings()"></div>
 <div class="spanel" id="spanel">
   <div class="shdr">
-    <h2>⚙ Tetapan</h2>
+    <h2>⚙ Settings</h2>
     <button class="sclose" onclick="closeSettings()">×</button>
   </div>
   <div class="stabs">
-    <div class="stab on" id="stab-workers" onclick="switchTab('workers')">Pekerja</div>
-    <div class="stab" id="stab-branches" onclick="switchTab('branches')">Branch</div>
+    <div class="stab on" id="stab-workers" onclick="switchTab('workers')">Workers</div>
+    <div class="stab" id="stab-branches" onclick="switchTab('branches')">Branches</div>
   </div>
   <div class="sbody">
     <div class="stcontent on" id="scontent-workers">
-      <div class="slabel">Senarai Pekerja — tetapkan branch masing-masing</div>
+      <div class="slabel">Worker list — assign a branch to each</div>
       <div id="settings-workers-list"></div>
-      <div class="slabel">Tambah Pekerja Baru</div>
+      <div class="slabel">Add New Worker</div>
       <div class="addrow">
-        <input type="text" class="addinput" id="new-worker" placeholder="Nama pekerja (huruf besar)...">
-        <button class="badd" onclick="addWorker()">+ Tambah</button>
+        <input type="text" class="addinput" id="new-worker" placeholder="Worker name (uppercase)...">
+        <button class="badd" onclick="addWorker()">+ Add</button>
       </div>
     </div>
     <div class="stcontent" id="scontent-branches">
-      <div class="slabel">Senarai Branch</div>
+      <div class="slabel">Branch List</div>
       <div id="settings-branches-list"></div>
-      <div class="slabel">Tambah Branch Baru</div>
+      <div class="slabel">Add New Branch</div>
       <div class="addrow">
-        <input type="text" class="addinput" id="new-branch" placeholder="Nama branch...">
-        <button class="badd" onclick="addBranch()">+ Tambah</button>
+        <input type="text" class="addinput" id="new-branch" placeholder="Branch name...">
+        <button class="badd" onclick="addBranch()">+ Add</button>
       </div>
     </div>
   </div>
@@ -334,270 +382,206 @@ textarea.fc{resize:vertical;min-height:60px}
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════
-// CONSTANTS
-// ═══════════════════════════════════════
-const CATS  = ['Google','Facebook','Video','Mattress'];
-const STATS = ['Done','Pending','Follow Up'];
+const CATS    = ['Google','Facebook','Video','Mattress'];
 const CAT_CLS = {Google:'g',Facebook:'f',Video:'v',Mattress:'m'};
 const INIT_WORKERS = ['ELSA DEVITA','EVI','IDA','TIMAH','SITI','NELLY','ARGA','YANI','MARIA PUTRI','EKA','FITRI B','ANGGI','MARDIAH','SATI','SUSI'];
 
-// ═══════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════
 let db = {
   workers:  INIT_WORKERS.map((n,i)=>({id:'w'+(i+1), name:n, branch:''})),
   branches: ['DC Clean','Hawkyz','Kurina'],
   reviews:  []
 };
-let editId    = null;
-let openSet   = new Set();
+let editId  = null;
+let openSet = new Set();
 
-// ═══════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════
 function loadDB(){
-  try {
-    const s = localStorage.getItem('dcclean_v3');
-    if(s) db = JSON.parse(s);
-  } catch(e){}
+  try{ const s=localStorage.getItem('dcclean_v3'); if(s) db=JSON.parse(s); }catch(e){}
 }
 function saveDB(){ localStorage.setItem('dcclean_v3', JSON.stringify(db)); }
 
-// ═══════════════════════════════════════
-// SUMMARY
-// ═══════════════════════════════════════
+// ── SUMMARY ──
 function renderSummary(){
   const total = db.reviews.length;
 
   const branchTotals = {};
-  db.branches.forEach(b => branchTotals[b] = 0);
-  db.reviews.forEach(r => {
-    if(r.branch){ branchTotals[r.branch] = (branchTotals[r.branch]||0) + 1; }
-  });
+  db.branches.forEach(b => branchTotals[b]=0);
+  db.reviews.forEach(r => { if(r.branch) branchTotals[r.branch]=(branchTotals[r.branch]||0)+1; });
 
   const catTotals = {};
-  CATS.forEach(c => catTotals[c] = 0);
+  CATS.forEach(c => catTotals[c]=0);
   db.reviews.forEach(r => { if(catTotals[r.cat]!==undefined) catTotals[r.cat]++; });
 
-  const branchChips = db.branches.map(b =>
-    `<div class="chip br"><div class="chip-num">${branchTotals[b]||0}</div><div class="chip-lbl">${esc(b)}</div></div>`
+  const branchCards = db.branches.length
+    ? db.branches.map(b=>`<div class="bigcard br"><div class="bigcard-num">${branchTotals[b]||0}</div><div class="bigcard-lbl">${esc(b)}</div></div>`).join('')
+    : `<p style="color:var(--text3);font-size:12px;padding:8px 0">No branches yet — add in Settings.</p>`;
+
+  const catCards = CATS.map(c=>
+    `<div class="bigcard ${CAT_CLS[c]}"><div class="bigcard-num">${catTotals[c]}</div><div class="bigcard-lbl">${c}</div></div>`
   ).join('');
 
-  const catChips = CATS.map(c =>
-    `<div class="chip ${CAT_CLS[c]}"><div class="chip-num">${catTotals[c]}</div><div class="chip-lbl">${c}</div></div>`
-  ).join('');
-
-  document.getElementById('summary').innerHTML = `
-    <div style="margin-bottom:16px">
-      <div class="sum-total">
-        <div class="sum-total-num">${total}</div>
-        <div class="sum-total-lbl">Total Review</div>
-      </div>
+  document.getElementById('summary').innerHTML=`
+    <div class="sum-bigrow">
+      <div class="bigcard total"><div class="bigcard-num">${total}</div><div class="bigcard-lbl">Total Reviews</div></div>
     </div>
-    <div class="sum-section">
-      <div class="sum-label">Branch</div>
-      <div class="sum-chips">${branchChips||'<span style="color:var(--text3);font-size:12px">Tiada branch. Tambah dalam Tetapan.</span>'}</div>
-    </div>
-    <div class="sum-section">
-      <div class="sum-label">Kategori</div>
-      <div class="sum-chips">${catChips}</div>
-    </div>`;
+    <div class="sum-label">Branch</div>
+    <div class="sum-bigrow">${branchCards}</div>
+    <div class="sum-label" style="margin-top:2px">Category</div>
+    <div class="sum-bigrow">${catCards}</div>`;
 }
 
-// ═══════════════════════════════════════
-// FORM
-// ═══════════════════════════════════════
+// ── FORM ──
 function populateWorkerDrop(){
-  const sel = document.getElementById('f-worker');
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">— Pilih Pekerja —</option>';
-  db.workers.forEach(w => {
-    const o = document.createElement('option');
-    o.value = w.id; o.textContent = w.name;
-    sel.appendChild(o);
-  });
-  if(cur) sel.value = cur;
+  const sel=document.getElementById('f-worker'), cur=sel.value;
+  sel.innerHTML='<option value="">— Select Worker —</option>';
+  db.workers.forEach(w=>{ const o=document.createElement('option'); o.value=w.id; o.textContent=w.name; sel.appendChild(o); });
+  if(cur) sel.value=cur;
 }
 
 function onWorkerChange(){
-  const wid = document.getElementById('f-worker').value;
-  const w   = db.workers.find(x => x.id === wid);
-  const wrap = document.getElementById('branch-tag-wrap');
-  if(w && w.branch){
-    document.getElementById('branch-tag-text').textContent = w.branch;
-    wrap.style.display = 'block';
-  } else {
-    wrap.style.display = 'none';
-  }
+  const w=db.workers.find(x=>x.id===document.getElementById('f-worker').value);
+  const wrap=document.getElementById('branch-tag-wrap');
+  if(w&&w.branch){ document.getElementById('branch-tag-text').textContent=w.branch; wrap.style.display='block'; }
+  else wrap.style.display='none';
 }
 
 function resetForm(){
-  document.getElementById('f-worker').value  = '';
-  document.getElementById('f-cust').value    = '';
-  document.getElementById('f-cat').value     = 'Google';
-  document.getElementById('f-status').value  = 'Done';
-  document.getElementById('f-date').value    = today();
-  document.getElementById('f-notes').value   = '';
-  document.getElementById('branch-tag-wrap').style.display = 'none';
+  document.getElementById('f-worker').value ='';
+  document.getElementById('f-cust').value   ='';
+  document.getElementById('f-addr').value   ='';
+  document.getElementById('f-cat').value    ='Google';
+  document.getElementById('f-status').value ='Done';
+  document.getElementById('f-date').value   =today();
+  document.getElementById('f-notes').value  ='';
+  document.getElementById('branch-tag-wrap').style.display='none';
 }
 
 function today(){ return new Date().toISOString().split('T')[0]; }
 
 function submitForm(){
-  const wid    = document.getElementById('f-worker').value.trim();
-  const cust   = document.getElementById('f-cust').value.trim();
-  const cat    = document.getElementById('f-cat').value;
-  const status = document.getElementById('f-status').value;
-  const date   = document.getElementById('f-date').value || today();
-  const notes  = document.getElementById('f-notes').value.trim();
+  const wid   =document.getElementById('f-worker').value.trim();
+  const cust  =document.getElementById('f-cust').value.trim();
+  const addr  =document.getElementById('f-addr').value.trim();
+  const cat   =document.getElementById('f-cat').value;
+  const status=document.getElementById('f-status').value;
+  const date  =document.getElementById('f-date').value||today();
+  const notes =document.getElementById('f-notes').value.trim();
 
-  if(!wid || !cust){ toast('Sila isi nama pekerja dan pelanggan'); return; }
-
-  const w = db.workers.find(x => x.id === wid);
+  if(!wid||!cust){ toast('Please fill in worker name and customer name'); return; }
+  const w=db.workers.find(x=>x.id===wid);
 
   if(editId){
-    const idx = db.reviews.findIndex(r => r.id === editId);
-    if(idx !== -1){
-      db.reviews[idx] = {id:editId, wid, wname:w?w.name:'', branch:w?w.branch:'', cust, cat, status, date, notes};
-    }
-    toast('Review dikemaskini ✓');
+    const idx=db.reviews.findIndex(r=>r.id===editId);
+    if(idx!==-1) db.reviews[idx]={id:editId, wid, wname:w?w.name:'', branch:w?w.branch:'', cust, addr, cat, status, date, notes};
+    toast('Review updated ✓');
     cancelEdit();
   } else {
-    db.reviews.push({id:Date.now()+'', wid, wname:w?w.name:'', branch:w?w.branch:'', cust, cat, status, date, notes});
-    toast('Review disimpan ✓');
+    db.reviews.push({id:Date.now()+'', wid, wname:w?w.name:'', branch:w?w.branch:'', cust, addr, cat, status, date, notes});
+    toast('Review saved ✓');
     resetForm();
   }
-  saveDB();
-  renderAll();
+  saveDB(); renderAll();
 }
 
 function startEdit(id){
-  const r = db.reviews.find(x => x.id === id);
-  if(!r) return;
-  editId = id;
-  document.getElementById('f-worker').value  = r.wid;
-  onWorkerChange();
-  document.getElementById('f-cust').value    = r.cust;
-  document.getElementById('f-cat').value     = r.cat;
-  document.getElementById('f-status').value  = r.status;
-  document.getElementById('f-date').value    = r.date;
-  document.getElementById('f-notes').value   = r.notes||'';
-  document.getElementById('form-title').textContent = 'Edit Review';
+  const r=db.reviews.find(x=>x.id===id); if(!r) return;
+  editId=id;
+  document.getElementById('f-worker').value =r.wid;  onWorkerChange();
+  document.getElementById('f-cust').value   =r.cust;
+  document.getElementById('f-addr').value   =r.addr||'';
+  document.getElementById('f-cat').value    =r.cat;
+  document.getElementById('f-status').value =r.status;
+  document.getElementById('f-date').value   =r.date;
+  document.getElementById('f-notes').value  =r.notes||'';
+  document.getElementById('form-title').textContent='Edit Review';
   document.getElementById('edit-alert').classList.add('on');
-  document.getElementById('btn-cancel').style.display = 'block';
-  document.getElementById('btn-save').textContent = 'Kemaskini';
+  document.getElementById('btn-cancel').style.display='block';
+  document.getElementById('btn-save').textContent='Update';
   document.querySelector('.card:nth-child(2)').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function cancelEdit(){
-  editId = null;
-  document.getElementById('form-title').textContent = 'Tambah Review';
+  editId=null;
+  document.getElementById('form-title').textContent='Add Review';
   document.getElementById('edit-alert').classList.remove('on');
-  document.getElementById('btn-cancel').style.display = 'none';
-  document.getElementById('btn-save').textContent = 'Simpan Review';
+  document.getElementById('btn-cancel').style.display='none';
+  document.getElementById('btn-save').textContent='Save Review';
   resetForm();
 }
 
 function deleteReview(id){
-  if(!confirm('Padam review ini?')) return;
-  db.reviews = db.reviews.filter(r => r.id !== id);
-  saveDB(); renderAll();
-  toast('Review dipadam');
+  if(!confirm('Delete this review?')) return;
+  db.reviews=db.reviews.filter(r=>r.id!==id);
+  saveDB(); renderAll(); toast('Review deleted');
 }
 
-// ═══════════════════════════════════════
-// WORKER LIST
-// ═══════════════════════════════════════
+// ── WORKER LIST ──
 function renderList(){
-  const search  = document.getElementById('f-search').value.toLowerCase();
-  const fBranch = document.getElementById('f-fbranch').value;
-  const fCat    = document.getElementById('f-fcat').value;
-  const fStat   = document.getElementById('f-fstatus').value;
+  const search =document.getElementById('f-search').value.toLowerCase();
+  const fBranch=document.getElementById('f-fbranch').value;
+  const fCat   =document.getElementById('f-fcat').value;
+  const fStat  =document.getElementById('f-fstatus').value;
 
-  let html = '';
-  let visCount = 0;
+  let html='', visCount=0;
 
-  db.workers.forEach((w, idx) => {
-    // Branch filter on worker level
-    if(fBranch && w.branch !== fBranch) return;
+  db.workers.forEach((w,idx)=>{
+    if(fBranch&&w.branch!==fBranch) return;
+    const allRev=db.reviews.filter(r=>r.wid===w.id);
+    let fRev=[...allRev];
+    if(fCat)  fRev=fRev.filter(r=>r.cat===fCat);
+    if(fStat) fRev=fRev.filter(r=>r.status===fStat);
+    const nameHit=w.name.toLowerCase().includes(search);
+    const custHit=fRev.some(r=>r.cust.toLowerCase().includes(search)||r.addr&&r.addr.toLowerCase().includes(search));
+    if(search&&!nameHit&&!custHit) return;
+    if(search&&!nameHit&&custHit) fRev=fRev.filter(r=>r.cust.toLowerCase().includes(search)||r.addr&&r.addr.toLowerCase().includes(search));
 
-    // All reviews for this worker
-    const allRev = db.reviews.filter(r => r.wid === w.id);
+    const cnt={}; CATS.forEach(c=>cnt[c]=0);
+    allRev.forEach(r=>{if(cnt[r.cat]!==undefined)cnt[r.cat]++;});
+    const chips=CATS.filter(c=>cnt[c]>0).map(c=>`<span class="wcc ${CAT_CLS[c]}">${c}: ${cnt[c]}</span>`).join('');
 
-    // Filtered reviews
-    let fRev = allRev;
-    if(fCat)   fRev = fRev.filter(r => r.cat === fCat);
-    if(fStat)  fRev = fRev.filter(r => r.status === fStat);
-
-    // Search
-    const nameHit = w.name.toLowerCase().includes(search);
-    const custHit = fRev.some(r => r.cust.toLowerCase().includes(search));
-    if(search && !nameHit && !custHit) return;
-    if(search && !nameHit && custHit){
-      fRev = fRev.filter(r => r.cust.toLowerCase().includes(search));
-    }
-
-    // Counts (from ALL reviews, before filter)
-    const cnt = {}; CATS.forEach(c => cnt[c]=0);
-    allRev.forEach(r => { if(cnt[r.cat]!==undefined) cnt[r.cat]++; });
-    const chips = CATS.filter(c => cnt[c]>0)
-      .map(c=>`<span class="wcc ${CAT_CLS[c]}">${c}: ${cnt[c]}</span>`).join('');
-
-    const isOpen = openSet.has(w.id);
     visCount++;
-
-    // Review rows (sorted newest first)
-    const sorted = [...fRev].sort((a,b) => b.date.localeCompare(a.date));
-    const rows = sorted.length === 0
-      ? `<div class="wempty">Tiada review${fCat||fStat||search?' (berdasarkan filter)':' — tekan Tambah Review untuk mula'}.</div>`
-      : sorted.map(r => {
-          const sc = r.status==='Done'?'done':r.status==='Pending'?'pend':'fup';
+    const sorted=[...fRev].sort((a,b)=>b.date.localeCompare(a.date));
+    const rows=sorted.length===0
+      ? `<div class="wempty">No reviews${fCat||fStat||search?' matching the current filter':' yet — click Add Review to start'}.</div>`
+      : sorted.map(r=>{
+          const sc=r.status==='Done'?'done':r.status==='Pending'?'pend':'fup';
           return `<div class="rrow">
             <span class="rcat ${CAT_CLS[r.cat]||''}">${r.cat}</span>
             <div class="rmain">
               <div class="rcust">${esc(r.cust)}</div>
+              ${r.addr?`<div class="raddr">📍 ${esc(r.addr)}</div>`:''}
               <div class="rmeta">${r.date}${r.branch?' · '+esc(r.branch):''}</div>
               ${r.notes?`<div class="rnotes">${esc(r.notes)}</div>`:''}
             </div>
             <span class="rstatus ${sc}">${r.status}</span>
             <div class="racts">
               <button class="bedit" onclick="startEdit('${r.id}')">Edit</button>
-              <button class="bdel"  onclick="deleteReview('${r.id}')">Padam</button>
+              <button class="bdel"  onclick="deleteReview('${r.id}')">Delete</button>
             </div>
           </div>`;
         }).join('');
 
-    html += `
-      <div class="witem${isOpen?' open':''}" id="wi-${w.id}">
+    html+=`
+      <div class="witem${openSet.has(w.id)?' open':''}" id="wi-${w.id}">
         <div class="whdr" onclick="toggleW('${w.id}')">
           <span class="wtoggle">▶</span>
           <span class="wnum">${idx+1}</span>
           <span class="wname">${esc(w.name)}</span>
           ${w.branch?`<span class="wbranch">${esc(w.branch)}</span>`:'<span class="wbranch" style="opacity:.4">—</span>'}
           <div class="wcounts">${chips}</div>
-          <span class="wtotal">${allRev.length} review</span>
+          <span class="wtotal">${allRev.length} reviews</span>
         </div>
-        <div class="rcontainer">
-          <div class="rinner">${rows}</div>
-        </div>
+        <div class="rcontainer"><div class="rinner">${rows}</div></div>
       </div>`;
   });
 
-  if(!html) html = `<div class="empty-list">Tiada pekerja dijumpai.</div>`;
-
-  document.getElementById('wlist').innerHTML = html;
-  document.getElementById('list-count').textContent = visCount + ' pekerja';
+  if(!html) html=`<div class="empty-list">No workers found.</div>`;
+  document.getElementById('wlist').innerHTML=html;
+  document.getElementById('list-count').textContent=visCount+' workers';
 }
 
-function toggleW(id){
-  if(openSet.has(id)) openSet.delete(id); else openSet.add(id);
-  renderList();
-}
+function toggleW(id){ if(openSet.has(id)) openSet.delete(id); else openSet.add(id); renderList(); }
 
-// ═══════════════════════════════════════
-// SETTINGS
-// ═══════════════════════════════════════
+// ── SETTINGS ──
 function openSettings(){
   document.getElementById('spanel').classList.add('on');
   document.getElementById('overlay').classList.add('on');
@@ -608,121 +592,89 @@ function closeSettings(){
   document.getElementById('overlay').classList.remove('on');
 }
 function switchTab(t){
-  ['workers','branches'].forEach(x => {
-    document.getElementById('stab-'+x).classList.toggle('on', x===t);
-    document.getElementById('scontent-'+x).classList.toggle('on', x===t);
+  ['workers','branches'].forEach(x=>{
+    document.getElementById('stab-'+x).classList.toggle('on',x===t);
+    document.getElementById('scontent-'+x).classList.toggle('on',x===t);
   });
 }
-
 function renderSWorkers(){
-  document.getElementById('settings-workers-list').innerHTML = db.workers.map(w => `
+  document.getElementById('settings-workers-list').innerHTML=db.workers.map(w=>`
     <div class="srow">
-      <input class="sinput" type="text" value="${esc(w.name)}"
-        onchange="updateWName('${w.id}',this.value)" placeholder="Nama pekerja">
+      <input class="sinput" type="text" value="${esc(w.name)}" onchange="updateWName('${w.id}',this.value)" placeholder="Worker name">
       <select class="sbrsel" onchange="updateWBranch('${w.id}',this.value)">
         <option value="">— No Branch —</option>
         ${db.branches.map(b=>`<option value="${b}"${w.branch===b?' selected':''}>${b}</option>`).join('')}
       </select>
       <button class="brem" onclick="removeWorker('${w.id}')">✕</button>
-    </div>`).join('') || '<div class="empty-list">Tiada pekerja.</div>';
+    </div>`).join('')||'<div class="empty-list">No workers.</div>';
 }
-
 function renderSBranches(){
-  document.getElementById('settings-branches-list').innerHTML = db.branches.map(b => `
+  document.getElementById('settings-branches-list').innerHTML=db.branches.map(b=>`
     <div class="srow">
       <span class="bname">${esc(b)}</span>
-      <button class="brem" onclick="removeBranch('${esc(b)}')">Padam</button>
-    </div>`).join('') || '<div class="empty-list">Tiada branch.</div>';
-
-  // Sync filter dropdown
-  const sel = document.getElementById('f-fbranch');
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">Semua Branch</option>';
-  db.branches.forEach(b => {
-    const o = document.createElement('option');
-    o.value = b; o.textContent = b;
-    sel.appendChild(o);
-  });
-  sel.value = cur;
+      <button class="brem" onclick="removeBranch('${esc(b)}')">Delete</button>
+    </div>`).join('')||'<div class="empty-list">No branches.</div>';
+  const sel=document.getElementById('f-fbranch'), cur=sel.value;
+  sel.innerHTML='<option value="">All Branches</option>';
+  db.branches.forEach(b=>{ const o=document.createElement('option'); o.value=b; o.textContent=b; sel.appendChild(o); });
+  sel.value=cur;
 }
-
-function updateWName(id, name){
-  const w = db.workers.find(x => x.id===id);
-  if(w){ w.name = name.trim().toUpperCase(); db.reviews.forEach(r=>{if(r.wid===id)r.wname=w.name;}); saveDB(); renderAll(); }
+function updateWName(id,name){
+  const w=db.workers.find(x=>x.id===id);
+  if(w){ w.name=name.trim().toUpperCase(); db.reviews.forEach(r=>{if(r.wid===id)r.wname=w.name;}); saveDB(); renderAll(); }
 }
-function updateWBranch(id, branch){
-  const w = db.workers.find(x => x.id===id);
-  if(w){ w.branch = branch; db.reviews.forEach(r=>{if(r.wid===id)r.branch=branch;}); saveDB(); renderAll(); renderSBranches(); }
+function updateWBranch(id,branch){
+  const w=db.workers.find(x=>x.id===id);
+  if(w){ w.branch=branch; db.reviews.forEach(r=>{if(r.wid===id)r.branch=branch;}); saveDB(); renderAll(); renderSBranches(); }
 }
 function removeWorker(id){
-  if(!confirm('Padam pekerja? Semua review pekerja ini juga dipadam.')) return;
-  db.workers  = db.workers.filter(w => w.id!==id);
-  db.reviews  = db.reviews.filter(r => r.wid!==id);
+  if(!confirm('Delete worker? All their reviews will also be deleted.')) return;
+  db.workers=db.workers.filter(w=>w.id!==id);
+  db.reviews=db.reviews.filter(r=>r.wid!==id);
   saveDB(); renderAll(); renderSWorkers();
 }
 function addWorker(){
-  const inp = document.getElementById('new-worker');
-  const nm  = inp.value.trim().toUpperCase();
+  const inp=document.getElementById('new-worker'), nm=inp.value.trim().toUpperCase();
   if(!nm) return;
   db.workers.push({id:'w'+Date.now(), name:nm, branch:''});
-  inp.value = '';
-  saveDB(); renderAll(); renderSWorkers();
-  toast('Pekerja baru ditambah ✓');
+  inp.value=''; saveDB(); renderAll(); renderSWorkers();
+  toast('New worker added ✓');
 }
 function addBranch(){
-  const inp = document.getElementById('new-branch');
-  const nm  = inp.value.trim();
-  if(!nm || db.branches.includes(nm)) return;
-  db.branches.push(nm);
-  inp.value = '';
+  const inp=document.getElementById('new-branch'), nm=inp.value.trim();
+  if(!nm||db.branches.includes(nm)) return;
+  db.branches.push(nm); inp.value='';
   saveDB(); renderAll(); renderSBranches(); renderSWorkers();
-  toast('Branch baru ditambah ✓');
+  toast('New branch added ✓');
 }
 function removeBranch(name){
-  if(db.workers.some(w => w.branch===name)){
-    if(!confirm(`Branch "${name}" digunakan oleh beberapa pekerja. Padam tetap?`)) return;
-    db.workers.forEach(w => { if(w.branch===name) w.branch=''; });
+  if(db.workers.some(w=>w.branch===name)){
+    if(!confirm(`Branch "${name}" is assigned to some workers. Delete anyway?`)) return;
+    db.workers.forEach(w=>{if(w.branch===name)w.branch='';});
   }
-  db.branches = db.branches.filter(b => b!==name);
+  db.branches=db.branches.filter(b=>b!==name);
   saveDB(); renderAll(); renderSBranches(); renderSWorkers();
 }
 
-// ═══════════════════════════════════════
-// EXPORT CSV
-// ═══════════════════════════════════════
+// ── EXPORT CSV ──
 function exportCSV(){
-  const rows = [['Tarikh','Pekerja','Branch','Pelanggan','Kategori','Status','Catatan']];
-  const sorted = [...db.reviews].sort((a,b) => b.date.localeCompare(a.date));
-  sorted.forEach(r => rows.push([r.date, r.wname, r.branch, r.cust, r.cat, r.status, r.notes||'']));
-  const csv = rows.map(r => r.map(c => '"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
-  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = 'DCClean_Reviews_'+today()+'.csv';
-  a.click(); URL.revokeObjectURL(url);
-  toast('CSV diexport ✓');
+  const rows=[['Date','Worker','Branch','Customer','Address','Category','Status','Notes']];
+  [...db.reviews].sort((a,b)=>b.date.localeCompare(a.date))
+    .forEach(r=>rows.push([r.date,r.wname,r.branch,r.cust,r.addr||'',r.cat,r.status,r.notes||'']));
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='DCClean_Reviews_'+today()+'.csv';
+  a.click(); toast('CSV exported ✓');
 }
 
-// ═══════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════
+// ── UTILS ──
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('on');
-  setTimeout(() => t.classList.remove('on'), 2400);
-}
-
-// ═══════════════════════════════════════
-// RENDER ALL
-// ═══════════════════════════════════════
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2400); }
 function renderAll(){ renderSummary(); renderList(); populateWorkerDrop(); }
 
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
 loadDB();
-document.getElementById('f-date').value = today();
+document.getElementById('f-date').value=today();
 renderAll();
 </script>
 </body>
