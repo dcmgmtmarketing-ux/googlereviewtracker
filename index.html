@@ -452,12 +452,23 @@ function saveLocalDB(){
 // ══════════════════════════════════
 function loadData(){
   document.getElementById('lb').innerHTML='<div class="loading"><div class="sw"></div>Mengambil data...</div>';
-  fetch(SCRIPT_URL+'?action=getData')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ DATA=d; renderAll(); })
-    .catch(function(){
-      document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung ke database. Semak SCRIPT_URL.</div>';
-    });
+
+  var cb='_gcb'+Date.now();
+  var sc=document.createElement('script');
+
+  window[cb]=function(d){
+    DATA=d; renderAll();
+    delete window[cb];
+    if(sc.parentNode) sc.parentNode.removeChild(sc);
+  };
+
+  sc.onerror=function(){
+    document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung. Semak SCRIPT_URL &amp; deployment.</div>';
+    delete window[cb];
+  };
+
+  sc.src=SCRIPT_URL+'?action=getData&callback='+cb;
+  document.head.appendChild(sc);
 }
 // ══════════════════════════════════
 // RENDER ALL
@@ -699,13 +710,13 @@ function submitReview(){
     resetForm(); toast('Review saved \u2713');
   }
   saveLocalDB(); renderReviewList();
-  // Sync to Sheets if running as Apps Script
-  if(SCRIPT_URL.indexOf('PASTE') === -1){
-  var params = new URLSearchParams();
-  params.append('action','logReview');
-  params.append('data', JSON.stringify(review));
-  fetch(SCRIPT_URL,{ method:'POST', mode:'no-cors', body:params });
-}
+  // Sync to Sheets
+  if(SCRIPT_URL.indexOf('PASTE')===-1){
+    var fd=new FormData();
+    fd.append('action','logReview');
+    fd.append('data',JSON.stringify(review));
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:fd}).catch(function(){});
+  }
 }
 
 function startEdit(id){
