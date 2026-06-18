@@ -420,6 +420,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 <div class="toast" id="toast"></div>
 
 <script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwx6Tdicn6LF3YvrY4vvb0pf_NzWaZ5gK58MA0_ayeQ3dMVyXWL0GcfXr4BWQHqrIE/exec';
 // ══════════════════════════════════
 // CONSTANTS
 // ══════════════════════════════════
@@ -451,17 +452,13 @@ function saveLocalDB(){
 // ══════════════════════════════════
 function loadData(){
   document.getElementById('lb').innerHTML='<div class="loading"><div class="sw"></div>Mengambil data...</div>';
-  if(typeof google!=='undefined'&&google.script){
-    google.script.run
-      .withSuccessHandler(function(d){ DATA=d; renderAll(); })
-      .withFailureHandler(function(e){ document.getElementById('lb').innerHTML='<div class="loading">Error: '+(e.message||e)+'</div>'; })
-      .getData();
-  } else {
-    DATA={workers:[],targets:{review:{target:50,semasa:0},video:{target:20,semasa:0},mattPro:{target:15,semasa:0},mattSel:{target:15,semasa:0},recurring:{target:10,semasa:0},daily:{target:5,semasa:0},newSvc:{target:10,semasa:0}}};
-    renderAll();
-  }
+  fetch(SCRIPT_URL+'?action=getData')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ DATA=d; renderAll(); })
+    .catch(function(){
+      document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung ke database. Semak SCRIPT_URL.</div>';
+    });
 }
-
 // ══════════════════════════════════
 // RENDER ALL
 // ══════════════════════════════════
@@ -703,9 +700,12 @@ function submitReview(){
   }
   saveLocalDB(); renderReviewList();
   // Sync to Sheets if running as Apps Script
-  if(typeof google!=='undefined'&&google.script){
-    google.script.run.withFailureHandler(function(){}).logReview(review);
-  }
+  if(SCRIPT_URL.indexOf('PASTE') === -1){
+  var params = new URLSearchParams();
+  params.append('action','logReview');
+  params.append('data', JSON.stringify(review));
+  fetch(SCRIPT_URL,{ method:'POST', mode:'no-cors', body:params });
+}
 }
 
 function startEdit(id){
