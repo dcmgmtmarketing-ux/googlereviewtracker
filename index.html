@@ -617,9 +617,25 @@ function loadData(){
   document.getElementById('lb').innerHTML='<div class="loading"><div class="sw"></div>Mengambil data...</div>';
   var cb='_gcb'+Date.now();
   var sc=document.createElement('script');
-  window[cb]=function(d){ DATA=d; renderAll(); delete window[cb]; if(sc.parentNode) sc.parentNode.removeChild(sc); };
+  window[cb]=function(d){ DATA=d; renderAll(); delete window[cb]; if(sc.parentNode) sc.parentNode.removeChild(sc); loadReviews(); };
   sc.onerror=function(){ document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung. Semak SCRIPT_URL &amp; deployment.</div>'; delete window[cb]; };
   sc.src=SCRIPT_URL+'?action=getData&callback='+cb;
+  document.head.appendChild(sc);
+}
+function loadReviews(){
+  var cb='_rvcb'+Date.now();
+  var sc=document.createElement('script');
+  window[cb]=function(d){
+    delete window[cb];
+    if(sc.parentNode) sc.parentNode.removeChild(sc);
+    if(d && d.ok && d.reviews){
+      localDB.reviews = d.reviews;
+      saveLocalDB();
+      renderReviewList();
+    }
+  };
+  sc.onerror=function(){ delete window[cb]; };
+  sc.src=SCRIPT_URL+'?action=getReviews&callback='+cb;
   document.head.appendChild(sc);
 }
 
