@@ -264,7 +264,6 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     <div class="hero-btns">
       <div class="btn-live"><span class="ldot"></span> Live</div>
       <button class="btn-refresh" onclick="loadData()">&#x21BB; Refresh</button>
-      <button class="btn-settings-hdr" onclick="openSettings()">&#9881; Settings</button>
     </div>
   </div>
 </header>
@@ -281,7 +280,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 
   <div class="tabs">
     <button class="tab active" onclick="showTab(0)">&#127942; Ranking</button>
-    <button class="tab" onclick="showTab(1)">&#128203; Log Review</button>
+    <button class="tab" onclick="showTab(1)">&#128203; Gift & Review Record</button>
     <button class="tab" onclick="showTab(2)">&#127968; Branch</button>
     <button class="tab" onclick="showTab(3)">&#127919; Sasaran</button>
     <button class="tab" onclick="showTab(4)">&#128176; Ganjaran</button>
@@ -298,7 +297,10 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
   <!-- TAB 1 : LOG REVIEW -->
   <div id="tab1" style="display:none">
     <div class="card">
-      <div class="card-hdr"><span class="card-title" id="form-title-el">Add Review</span></div>
+      <div class="card-hdr">
+  <span class="card-title" id="form-title-el">Add Review</span>
+  <button class="btn-cfg" onclick="openSettings()" style="padding:6px 14px;background:var(--navy);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">&#9881; Settings</button>
+</div>
       <div class="card-body">
         <div class="edit-alert" id="edit-alert">
           <span>&#9999; Edit Mode — updating selected review</span>
@@ -328,12 +330,12 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
           </div>
           <div class="fg">
             <label class="flabel">Category *</label>
-            <select class="fc" id="f-cat">
-              <option value="Google">Google Review</option>
-              <option value="Facebook">Facebook Review</option>
-              <option value="Video">Video Testimonial</option>
-              <option value="Mattress">Mattress</option>
-            </select>
+           <select class="fc" id="f-cat">
+  <option value="Google">Google Review</option>
+  <!-- <option value="Facebook">Facebook Review</option> -->
+  <!-- <option value="Video">Video Testimonial</option> -->
+  <!-- <option value="Mattress">Mattress</option> -->
+</select>
           </div>
           <div class="fg">
             <label class="flabel">Status</label>
