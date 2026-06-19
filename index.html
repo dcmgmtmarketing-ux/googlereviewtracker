@@ -812,17 +812,41 @@ function submitReview(){
 
   saveLocalDB(); renderReviewList();
 
+  // Disable button semasa sync
+  var btn = document.getElementById('btn-save');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
   if(SCRIPT_URL.indexOf('PASTE')===-1){
     var cb='_gcblog'+Date.now();
     var sc=document.createElement('script');
+
     window[cb]=function(r){
       delete window[cb];
       if(sc.parentNode) sc.parentNode.removeChild(sc);
-      loadData();
+      btn.disabled = false;
+      btn.textContent = editId ? 'Update' : 'Save Review';
+      if(r && r.ok){
+        toast('Saved & synced to Sheets ✓');
+        // Reload dari Sheets — ranking update dari data sebenar
+        loadData();
+      } else {
+        toast('Saved locally. Sheets sync failed.');
+      }
     };
-    sc.onerror=function(){ delete window[cb]; };
+
+    sc.onerror=function(){
+      delete window[cb];
+      btn.disabled = false;
+      btn.textContent = 'Save Review';
+      toast('Saved locally. Check connection.');
+    };
+
     sc.src=SCRIPT_URL+'?action=logReview&data='+encodeURIComponent(JSON.stringify(review))+'&callback='+cb;
     document.head.appendChild(sc);
+
+  } else {
+    btn.disabled = false;
   }
 }
 
