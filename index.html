@@ -661,12 +661,27 @@ function onFileSelect(file){
   if(!file) return;
   if(file.size > 10*1024*1024){ toast('Gambar terlalu besar. Maks 10MB'); return; }
   pendingImageFile = file;
+
   var reader = new FileReader();
   reader.onload = function(e){
-    document.getElementById('img-preview').src = e.target.result;
-    document.getElementById('img-preview-name').textContent = file.name;
-    document.getElementById('img-preview-wrap').style.display = 'block';
-    document.getElementById('drop-zone').style.display = 'none';
+    // Compress via canvas sebelum simpan
+    var img = new Image();
+    img.onload = function(){
+      var canvas = document.createElement('canvas');
+      var MAX = 800;
+      var w = img.width, h = img.height;
+      if(w > h && w > MAX){ h = Math.round(h*MAX/w); w = MAX; }
+      else if(h > MAX){ w = Math.round(w*MAX/h); h = MAX; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      pendingImageUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+      document.getElementById('img-preview').src = pendingImageUrl;
+      document.getElementById('img-preview-name').textContent = file.name;
+      document.getElementById('img-preview-wrap').style.display = 'block';
+      document.getElementById('drop-zone').style.display = 'none';
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -792,7 +807,8 @@ function submitReview(){
     branch:localDB.workerBranches[wname]||'',
     customerName:cust, customerAddr:addr,
     phone:document.getElementById('f-phone').value.trim(),
-    category:cat, status:status, date:date, notes:notes
+    category:cat, status:status, date:date, notes:notes,
+    imageUrl: pendingImageUrl || ''   // ← tambah ni
   };
   if(editId){
     var old=localDB.reviews.find(function(r){return r.id===editId;});
