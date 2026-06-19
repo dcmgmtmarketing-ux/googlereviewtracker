@@ -22,7 +22,6 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
 
-/* ── HERO ── */
 header{position:relative;color:#fff;overflow:hidden;background:var(--navy);padding:0}
 .hero-team-desktop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.55;z-index:1;filter:brightness(.85)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,22,40,.98) 0%,rgba(10,22,40,.92) 30%,rgba(15,55,150,.55) 60%,rgba(31,94,255,.25) 100%);z-index:2}
@@ -39,10 +38,8 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .btn-refresh,.btn-settings-hdr{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:9px 20px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;text-align:center}
 .btn-refresh:active,.btn-settings-hdr:active{background:rgba(255,255,255,.2)}
 
-/* ── MAIN ── */
 .main{max-width:980px;margin:0 auto;padding:12px 12px 40px}
 
-/* ── METRICS ── */
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:-32px;margin-bottom:14px;position:relative;z-index:10}
 .metric{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
 .metric::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--mc,var(--green))}
@@ -52,19 +49,16 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .metric-bar{height:3px;background:#E8ECF2;border-radius:2px;margin-top:8px;overflow:hidden}
 .mbar{height:100%;border-radius:2px;transition:width .6s ease}
 
-/* ── TABS ── */
 .tabs{display:flex;gap:3px;background:#E8ECF2;border-radius:10px;padding:4px;margin-bottom:14px;overflow-x:auto}
 .tab{flex:1;padding:8px 4px;border:none;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;background:transparent;color:var(--text2);font-family:inherit;transition:all .15s;white-space:nowrap;min-width:70px}
 .tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 
-/* ── CARD ── */
 .card{background:var(--surface);border:.5px solid var(--border);border-radius:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .card-hdr{padding:13px 20px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .card-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
 .card-title::before{content:"";width:3px;height:12px;background:var(--green);border-radius:2px}
 .card-body{padding:14px 20px}
 
-/* ── LEADERBOARD ── */
 .worker-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:.5px solid #F0EFE9}
 .worker-row:last-child{border-bottom:none}
 .rank{font-size:18px;width:26px;text-align:center;flex-shrink:0}
@@ -102,7 +96,24 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .form-footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px}
 .btn-save{padding:9px 24px;background:var(--navy);color:#fff;border:none;border-radius:var(--r2);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-save:hover{background:var(--navy2)}
+.btn-save:disabled{background:#94a3b8;cursor:not-allowed}
 .btn-cancel-form{padding:9px 16px;background:#fff;color:var(--text2);border:1px solid #c8d0da;border-radius:var(--r2);font-size:13px;cursor:pointer;font-family:inherit}
+
+/* ── IMAGE UPLOAD ── */
+.drop-zone{border:2px dashed #c8d0da;border-radius:var(--r);padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;position:relative}
+.drop-zone:hover,.drop-zone.drag-over{border-color:#3b82f6;background:#eff6ff}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:28px;margin-bottom:6px}
+.drop-text{font-size:12px;color:var(--text3);line-height:1.5}
+.drop-text strong{color:var(--text2);display:block;margin-bottom:2px}
+.img-preview-wrap{margin-top:10px;display:none}
+.img-preview{width:100%;max-height:180px;object-fit:contain;border-radius:8px;border:1px solid var(--border)}
+.img-preview-info{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.img-preview-name{font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
+.btn-remove-img{font-size:11px;color:#dc2626;background:none;border:none;cursor:pointer;padding:2px 6px;font-family:inherit}
+.upload-progress{display:none;margin-top:8px;background:#E8ECF2;border-radius:4px;height:6px;overflow:hidden}
+.upload-bar{height:100%;background:var(--green);border-radius:4px;width:0%;transition:width .3s}
+.upload-status{font-size:11px;color:var(--text3);margin-top:4px;text-align:center;display:none}
 
 /* ── FILTER BAR ── */
 .fbar{padding:11px 16px;border-bottom:.5px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -111,6 +122,19 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .fsel{padding:6px 9px;border:1px solid #c8d0da;border-radius:var(--r2);font-size:12px;color:var(--text);background:#fff;cursor:pointer}
 .btn-export{padding:5px 13px;background:#fff;border:1px solid #c8d0da;border-radius:var(--r2);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;margin-left:auto}
 .btn-export:hover{border-color:var(--navy);color:var(--navy)}
+
+/* ── WORKER GROUP in Review Log ── */
+.wgroup{margin-bottom:10px;border:.5px solid var(--border);border-radius:10px;overflow:hidden}
+.wgroup-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#F4F6F9;cursor:pointer;user-select:none;gap:10px}
+.wgroup-hdr:hover{background:#eef0f4}
+.wgroup-left{display:flex;align-items:center;gap:10px}
+.wgroup-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.wgroup-name{font-size:13px;font-weight:700;color:var(--text)}
+.wgroup-count{font-size:11px;color:var(--text3);background:#E8ECF2;border-radius:10px;padding:2px 8px}
+.wgroup-chevron{font-size:12px;color:var(--text3);transition:transform .2s;flex-shrink:0}
+.wgroup-chevron.open{transform:rotate(180deg)}
+.wgroup-body{display:none;padding:8px 10px;background:#fff}
+.wgroup-body.open{display:block}
 
 /* ── REVIEW ROWS ── */
 .rrow{padding:9px 12px;background:#F9FAFB;border:.5px solid var(--border);border-radius:8px;margin-bottom:6px;display:flex;align-items:flex-start;gap:9px}
@@ -122,18 +146,26 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .rcat.m{background:var(--m-bg);color:var(--m-tx)}
 .rmain{flex:1;min-width:0}
 .rcust{font-size:13px;font-weight:700}
+.rphone{font-size:11px;color:var(--text2);margin-top:1px}
 .raddr{font-size:11px;color:var(--text2);margin-top:1px}
 .rmeta{font-size:11px;color:var(--text3);margin-top:1px}
 .rnotes{font-size:11px;color:var(--text3);margin-top:2px;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+.rimg-thumb{width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--border);cursor:pointer;flex-shrink:0;margin-top:2px}
 .rstatus{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;white-space:nowrap}
 .rstatus.done{background:var(--done-bg);color:var(--done-tx)}
 .rstatus.pend{background:var(--pend-bg);color:var(--pend-tx)}
 .rstatus.fup{background:var(--fup-bg);color:var(--fup-tx)}
-.racts{display:flex;gap:4px;flex-shrink:0}
+.racts{display:flex;gap:4px;flex-shrink:0;flex-direction:column;align-items:flex-end}
 .bedit,.bdel{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;font-family:inherit;background:#fff}
 .bedit{border-color:#c8d0da;color:var(--text2)}.bedit:hover{border-color:#3b82f6;color:#3b82f6}
 .bdel{border-color:#fecaca;color:#dc2626}.bdel:hover{background:#fef2f2}
 .empty-msg{padding:20px;text-align:center;color:var(--text3);font-size:13px;font-style:italic}
+
+/* ── IMAGE LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;align-items:center;justify-content:center}
+.lightbox.on{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px}
+.lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;cursor:pointer;background:rgba(0,0,0,.4);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center}
 
 /* ── TARGETS ── */
 .target-item{margin-bottom:1.1rem}.target-item:last-child{margin-bottom:0}
@@ -150,7 +182,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .pts-pill{display:inline-block;background:#E8ECF2;border-radius:4px;padding:2px 8px;font-size:12px;font-weight:700;color:var(--text2)}
 .rm-val{font-weight:700;color:var(--green)}
 
-/* ── SETTINGS PANEL ── */
+/* ── SETTINGS ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200}
 .overlay.on{display:block}
 .spanel{position:fixed;top:0;right:-440px;width:440px;max-width:100vw;height:100vh;background:#fff;z-index:300;display:flex;flex-direction:column;transition:right .28s ease;box-shadow:-4px 0 24px rgba(0,0,0,.18)}
@@ -179,12 +211,10 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 .badd:hover{background:var(--navy2)}
 .empty-list{padding:20px;text-align:center;color:var(--text3);font-size:13px}
 
-/* ── LOADING ── */
 .loading{text-align:center;padding:2.5rem;color:var(--text3);font-size:13px}
 .sw{width:28px;height:28px;border:2px solid #E8ECF2;border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
-/* ── TOAST ── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--navy);color:#fff;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:500;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -239,7 +269,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     <button class="tab" onclick="showTab(4)">&#128176; Ganjaran</button>
   </div>
 
-  <!-- ═══ TAB 0 : RANKING ═══ -->
+  <!-- TAB 0 : RANKING -->
   <div id="tab0">
     <div class="card">
       <div class="card-hdr"><span class="card-title">Ranking Pekerja</span></div>
@@ -247,7 +277,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     </div>
   </div>
 
-  <!-- ═══ TAB 1 : LOG REVIEW ═══ -->
+  <!-- TAB 1 : LOG REVIEW -->
   <div id="tab1" style="display:none">
     <div class="card">
       <div class="card-hdr"><span class="card-title" id="form-title-el">Add Review</span></div>
@@ -270,7 +300,11 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
             <label class="flabel">Customer Name *</label>
             <input class="fc" type="text" id="f-cust" placeholder="Customer name...">
           </div>
-          <div class="fg w4">
+          <div class="fg w2">
+            <label class="flabel">Phone Number</label>
+            <input class="fc" type="tel" id="f-phone" placeholder="e.g. 0123456789">
+          </div>
+          <div class="fg w2">
             <label class="flabel">Customer Address</label>
             <input class="fc" type="text" id="f-addr" placeholder="Street, area, city...">
           </div>
@@ -299,6 +333,23 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
             <label class="flabel">Notes (optional)</label>
             <input class="fc" type="text" id="f-notes" placeholder="Additional notes...">
           </div>
+          <div class="fg w4">
+            <label class="flabel">Evidence / Gambar</label>
+            <div class="drop-zone" id="drop-zone">
+              <input type="file" id="f-img" accept="image/*" onchange="onFileSelect(this.files[0])">
+              <div class="drop-icon">&#128247;</div>
+              <div class="drop-text"><strong>Drag & drop gambar di sini</strong>atau klik untuk pilih fail<br><span style="font-size:10px">JPG, PNG, WEBP — maks 10MB</span></div>
+            </div>
+            <div class="img-preview-wrap" id="img-preview-wrap">
+              <img class="img-preview" id="img-preview" src="" alt="preview">
+              <div class="img-preview-info">
+                <span class="img-preview-name" id="img-preview-name"></span>
+                <button class="btn-remove-img" onclick="removeImage()">&#10005; Remove</button>
+              </div>
+            </div>
+            <div class="upload-progress" id="upload-progress"><div class="upload-bar" id="upload-bar"></div></div>
+            <div class="upload-status" id="upload-status"></div>
+          </div>
         </div>
         <div class="form-footer">
           <button class="btn-cancel-form" id="btn-cancel-form" onclick="cancelEdit()" style="display:none">Cancel</button>
@@ -306,6 +357,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="card-hdr">
         <span class="card-title">Review Log</span>
@@ -332,10 +384,10 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     </div>
   </div>
 
-  <!-- ═══ TAB 2 : BRANCH ═══ -->
+  <!-- TAB 2 : BRANCH -->
   <div id="tab2" style="display:none"></div>
 
-  <!-- ═══ TAB 3 : SASARAN ═══ -->
+  <!-- TAB 3 : SASARAN -->
   <div id="tab3" style="display:none">
     <div class="card">
       <div class="card-hdr"><span class="card-title">Progress Sasaran Kempen</span></div>
@@ -347,7 +399,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     </div>
   </div>
 
-  <!-- ═══ TAB 4 : GANJARAN ═══ -->
+  <!-- TAB 4 : GANJARAN -->
   <div id="tab4" style="display:none">
     <div class="card">
       <div class="card-hdr"><span class="card-title">Kadar Ganjaran Aktiviti</span></div>
@@ -387,9 +439,9 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
     </div>
   </div>
 
-</div><!-- /main -->
+</div>
 
-<!-- ═══ SETTINGS PANEL ═══ -->
+<!-- SETTINGS PANEL -->
 <div class="overlay" id="overlay" onclick="closeSettings()"></div>
 <div class="spanel" id="spanel">
   <div class="shdr">
@@ -417,29 +469,30 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#215;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLnvXf9aGCHrs-77uGzlD9UGVZs-n1P-jybyuvYJrkPBOLqyhm5sVt0__u4Nosp-8/exec';
-// ══════════════════════════════════
-// CONSTANTS
-// ══════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLnvXf9aGCHrs-77uGzlD9UGVZs-n1P-jybyuvYJrkPBOLqyhm5sVt0__u4Nosp-8/exec';
+
 var TL={review:"Google/FB Review",video:"Video Testimoni",mattPro:"Mattress (promote)",mattSel:"Mattress (selesai)",recurring:"Recurring",daily:"Daily/Contract",newSvc:"New Service"};
 var TC={review:"#1D9E75",video:"#2563EB",mattPro:"#B45309",mattSel:"#B45309",recurring:"#7C3AED",daily:"#DC2626",newSvc:"#0F6E56"};
 var AVBG=["#E1F5EE","#EFF6FF","#FEF3C7","#FEE2E2","#EDE9FE","#E0F2FE"];
 var AVTXT=["#065F46","#1E40AF","#92400E","#991B1B","#5B21B6","#0369A1"];
 var CAT_CLS={Google:'g',Facebook:'f',Video:'v',Mattress:'m'};
 
-// ══════════════════════════════════
-// STATE
-// ══════════════════════════════════
 var DATA = {};
 var editId = null;
+var pendingImageFile = null;
+var pendingImageUrl  = '';
 var localDB = { workerBranches:{}, branches:['DC Clean','Hawkyz','Kurina'], reviews:[] };
 
-// ══════════════════════════════════
-// LOCAL DB
-// ══════════════════════════════════
+// ── LOCAL DB ──────────────────────────────────────────────────────
 function loadLocalDB(){
   try{ var s=localStorage.getItem('dc_merged_v1'); if(s) localDB=JSON.parse(s); }catch(e){}
 }
@@ -447,44 +500,23 @@ function saveLocalDB(){
   try{ localStorage.setItem('dc_merged_v1',JSON.stringify(localDB)); }catch(e){}
 }
 
-// ══════════════════════════════════
-// APPS SCRIPT DATA LOAD
-// ══════════════════════════════════
+// ── LOAD DATA ─────────────────────────────────────────────────────
 function loadData(){
   document.getElementById('lb').innerHTML='<div class="loading"><div class="sw"></div>Mengambil data...</div>';
-
   var cb='_gcb'+Date.now();
   var sc=document.createElement('script');
-
-  window[cb]=function(d){
-    DATA=d; renderAll();
-    delete window[cb];
-    if(sc.parentNode) sc.parentNode.removeChild(sc);
-  };
-
-  sc.onerror=function(){
-    document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung. Semak SCRIPT_URL &amp; deployment.</div>';
-    delete window[cb];
-  };
-
+  window[cb]=function(d){ DATA=d; renderAll(); delete window[cb]; if(sc.parentNode) sc.parentNode.removeChild(sc); };
+  sc.onerror=function(){ document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung. Semak SCRIPT_URL &amp; deployment.</div>'; delete window[cb]; };
   sc.src=SCRIPT_URL+'?action=getData&callback='+cb;
   document.head.appendChild(sc);
 }
-// ══════════════════════════════════
-// RENDER ALL
-// ══════════════════════════════════
+
 function renderAll(){
-  renderMetrics();
-  renderLeaderboard();
-  renderBranchTab();
-  renderTargets();
-  populateWorkerDrop();
-  renderReviewList();
+  renderMetrics(); renderLeaderboard(); renderBranchTab();
+  renderTargets(); populateWorkerDrop(); renderReviewList();
 }
 
-// ══════════════════════════════════
-// METRICS
-// ══════════════════════════════════
+// ── METRICS ───────────────────────────────────────────────────────
 function renderMetrics(){
   var w=DATA.workers||[], tg=DATA.targets||{};
   var tR=w.reduce(function(s,x){return s+(x.review||0);},0);
@@ -505,9 +537,7 @@ function renderMetrics(){
     '<div class="metric" style="--mc:#DC2626"><div class="metric-label">Ganjaran</div><div class="metric-val" style="font-size:17px">RM'+tRM.toLocaleString()+'</div><div class="metric-sub">'+(w.length)+' pekerja</div></div>';
 }
 
-// ══════════════════════════════════
-// LEADERBOARD
-// ══════════════════════════════════
+// ── LEADERBOARD ───────────────────────────────────────────────────
 function ini(n){return(n||'').trim().split(/\s+/).map(function(x){return x[0]||'';}).join('').slice(0,2).toUpperCase();}
 function rankBadge(r){
   if(!r||r==='—') return '<span class="ranking-badge badge-none">—</span>';
@@ -525,7 +555,6 @@ function barColor(r){
 function avatarIdx(name){
   return Math.abs((name||'').split('').reduce(function(h,c){return(h<<5)-h+c.charCodeAt(0);},0))%6;
 }
-
 function renderLeaderboard(){
   var w=DATA.workers||[];
   if(w.length===0){ document.getElementById('lb').innerHTML='<div class="loading">Tiada data.</div>'; return; }
@@ -540,52 +569,33 @@ function renderLeaderboard(){
       '<div class="rank">'+(r<3?md[r]:'#'+(r+1))+'</div>'+
       (x.photo?'<div class="avatar avatar-photo"><img src="'+x.photo+'" alt=""></div>':'<div class="avatar" style="background:'+AVBG[ci]+';color:'+AVTXT[ci]+'">'+ini(x.name)+'</div>')+
       '<div class="worker-main">'+
-        '<div class="worker-name">'+esc(x.name)+
-          (branch?' <span class="wbranch-tag">'+esc(branch)+'</span>':'')+
-          ' '+rankBadge(x.ranking)+
-        '</div>'+
+        '<div class="worker-name">'+esc(x.name)+(branch?' <span class="wbranch-tag">'+esc(branch)+'</span>':'')+' '+rankBadge(x.ranking)+'</div>'+
         '<div class="worker-stats"><span>R:'+(x.review||0)+'</span><span>V:'+(x.video||0)+'</span><span>M:'+((x.mattPro||0)+(x.mattSel||0))+'</span><span>Rec:'+(x.recurring||0)+'</span><span>D:'+(x.daily||0)+'</span><span>NS:'+(x.newSvc||0)+'</span></div>'+
         '<div class="bar-wrap"><div class="bar-fill" style="width:'+pct+'%;background:'+barColor(x.ranking)+'"></div></div>'+
       '</div>'+
-      '<div class="worker-right">'+
-        '<div class="pts-big">'+(x.pts||0)+'</div>'+
-        '<div class="pts-lbl">mata</div>'+
-        '<div class="reward-amt">RM'+(x.total||0).toLocaleString()+'</div>'+
-      '</div>'+
+      '<div class="worker-right"><div class="pts-big">'+(x.pts||0)+'</div><div class="pts-lbl">mata</div><div class="reward-amt">RM'+(x.total||0).toLocaleString()+'</div></div>'+
     '</div>';
   }).join('');
 }
 
-// ══════════════════════════════════
-// BRANCH TAB
-// ══════════════════════════════════
+// ── BRANCH TAB ────────────────────────────────────────────────────
 function renderBranchTab(){
   var container=document.getElementById('tab2');
   var w=DATA.workers||[];
   var html='';
-
   if(localDB.branches.length===0){
     container.innerHTML='<div class="card"><div class="card-body"><p style="color:var(--text3);font-size:13px;text-align:center;padding:20px 0">No branches configured. Add branches in &#9881; Settings.</p></div></div>';
     return;
   }
-
-  // Summary cards
   html+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px">';
   localDB.branches.forEach(function(branch){
     var bw=w.filter(function(wk){return localDB.workerBranches[wk.name]===branch;});
     var totalR=bw.reduce(function(s,wk){return s+(wk.review||0);},0);
     var totalPts=bw.reduce(function(s,wk){return s+(wk.pts||0);},0);
     var pct=bw.length>0?Math.min(100,Math.round(totalPts/Math.max(bw.length*30,1)*100)):0;
-    html+='<div class="metric" style="--mc:#1D9E75">'+
-      '<div class="metric-label">'+esc(branch)+'</div>'+
-      '<div class="metric-val">'+bw.length+'</div>'+
-      '<div class="metric-sub">pekerja &nbsp;&middot;&nbsp; '+totalR+' review</div>'+
-      '<div class="metric-bar"><div class="mbar" style="width:'+pct+'%;background:#1D9E75"></div></div>'+
-    '</div>';
+    html+='<div class="metric" style="--mc:#1D9E75"><div class="metric-label">'+esc(branch)+'</div><div class="metric-val">'+bw.length+'</div><div class="metric-sub">pekerja &nbsp;&middot;&nbsp; '+totalR+' review</div><div class="metric-bar"><div class="mbar" style="width:'+pct+'%;background:#1D9E75"></div></div></div>';
   });
   html+='</div>';
-
-  // Workers per branch
   localDB.branches.forEach(function(branch){
     var bw=w.filter(function(wk){return localDB.workerBranches[wk.name]===branch;}).sort(function(a,b){return (b.pts||0)-(a.pts||0);});
     html+='<div class="card"><div class="card-hdr"><span class="card-title">'+esc(branch)+'</span><span style="font-size:12px;color:var(--text3)">'+bw.length+' pekerja</span></div>';
@@ -596,51 +606,29 @@ function renderBranchTab(){
         var ci=avatarIdx(x.name);
         html+='<div class="worker-row">'+
           (x.photo?'<div class="avatar avatar-photo"><img src="'+x.photo+'" alt=""></div>':'<div class="avatar" style="background:'+AVBG[ci]+';color:'+AVTXT[ci]+'">'+ini(x.name)+'</div>')+
-          '<div class="worker-main">'+
-            '<div class="worker-name">'+esc(x.name)+' '+rankBadge(x.ranking)+'</div>'+
-            '<div class="worker-stats"><span>R:'+(x.review||0)+'</span><span>V:'+(x.video||0)+'</span><span>M:'+((x.mattPro||0)+(x.mattSel||0))+'</span><span>Rec:'+(x.recurring||0)+'</span></div>'+
-          '</div>'+
-          '<div class="worker-right">'+
-            '<div class="pts-big">'+(x.pts||0)+'</div>'+
-            '<div class="pts-lbl">mata</div>'+
-            '<div class="reward-amt">RM'+(x.total||0).toLocaleString()+'</div>'+
-          '</div>'+
+          '<div class="worker-main"><div class="worker-name">'+esc(x.name)+' '+rankBadge(x.ranking)+'</div><div class="worker-stats"><span>R:'+(x.review||0)+'</span><span>V:'+(x.video||0)+'</span><span>M:'+((x.mattPro||0)+(x.mattSel||0))+'</span><span>Rec:'+(x.recurring||0)+'</span></div></div>'+
+          '<div class="worker-right"><div class="pts-big">'+(x.pts||0)+'</div><div class="pts-lbl">mata</div><div class="reward-amt">RM'+(x.total||0).toLocaleString()+'</div></div>'+
         '</div>';
       });
     }
     html+='</div>';
   });
-
-  // Unassigned workers
   var unassigned=w.filter(function(wk){return !localDB.workerBranches[wk.name];});
   if(unassigned.length>0){
     html+='<div class="card"><div class="card-hdr"><span class="card-title">Unassigned</span><span style="font-size:12px;color:#DC2626">'+unassigned.length+' workers — assign in Settings</span></div>';
     unassigned.forEach(function(x){
       var ci=avatarIdx(x.name);
-      html+='<div class="worker-row">'+
-        '<div class="avatar" style="background:'+AVBG[ci]+';color:'+AVTXT[ci]+'">'+ini(x.name)+'</div>'+
-        '<div class="worker-main">'+
-          '<div class="worker-name">'+esc(x.name)+'</div>'+
-          '<div class="worker-stats"><span style="color:#DC2626">No branch</span></div>'+
-        '</div>'+
-        '<div class="worker-right"><div class="pts-big">'+(x.pts||0)+'</div><div class="pts-lbl">mata</div></div>'+
-      '</div>';
+      html+='<div class="worker-row"><div class="avatar" style="background:'+AVBG[ci]+';color:'+AVTXT[ci]+'">'+ini(x.name)+'</div><div class="worker-main"><div class="worker-name">'+esc(x.name)+'</div><div class="worker-stats"><span style="color:#DC2626">No branch</span></div></div><div class="worker-right"><div class="pts-big">'+(x.pts||0)+'</div><div class="pts-lbl">mata</div></div></div>';
     });
     html+='</div>';
   }
-
   container.innerHTML=html;
 }
 
-// ══════════════════════════════════
-// SASARAN TAB
-// ══════════════════════════════════
+// ── SASARAN ───────────────────────────────────────────────────────
 function renderTargets(){
   var tg=DATA.targets||{}, w=DATA.workers||[];
-  if(Object.keys(tg).length===0){
-    document.getElementById('tg-prog').innerHTML='<p style="color:var(--text3);font-size:13px">Tiada data sasaran.</p>';
-    return;
-  }
+  if(Object.keys(tg).length===0){ document.getElementById('tg-prog').innerHTML='<p style="color:var(--text3);font-size:13px">Tiada data sasaran.</p>'; return; }
   document.getElementById('tg-prog').innerHTML=Object.keys(tg).map(function(k){
     var v=tg[k].semasa, t=tg[k].target, p=Math.min(100,Math.round(v/t*100));
     return '<div class="target-item"><div class="tgt-hdr"><span class="tgt-name">'+(TL[k]||k)+'</span><span class="tgt-num">'+v+' / '+t+' &nbsp;&middot;&nbsp; '+p+'%</span></div><div class="tgt-bar"><div class="tgt-fill" style="width:'+p+'%;background:'+(TC[k]||'#1D9E75')+'"></div></div></div>';
@@ -653,9 +641,80 @@ function renderTargets(){
   '</tbody></table></div>';
 }
 
-// ══════════════════════════════════
-// REVIEW FORM
-// ══════════════════════════════════
+// ── IMAGE UPLOAD ──────────────────────────────────────────────────
+function onFileSelect(file){
+  if(!file) return;
+  if(file.size > 10*1024*1024){ toast('Gambar terlalu besar. Maks 10MB'); return; }
+  pendingImageFile = file;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    document.getElementById('img-preview').src = e.target.result;
+    document.getElementById('img-preview-name').textContent = file.name;
+    document.getElementById('img-preview-wrap').style.display = 'block';
+    document.getElementById('drop-zone').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(){
+  pendingImageFile = null;
+  pendingImageUrl  = '';
+  document.getElementById('img-preview-wrap').style.display = 'none';
+  document.getElementById('drop-zone').style.display = 'block';
+  document.getElementById('f-img').value = '';
+  document.getElementById('upload-progress').style.display = 'none';
+  document.getElementById('upload-status').style.display = 'none';
+}
+
+function uploadImageToServer(file, callback){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var b64full = e.target.result;
+    var b64 = b64full.split(',')[1];
+    var prog = document.getElementById('upload-progress');
+    var bar  = document.getElementById('upload-bar');
+    var stat = document.getElementById('upload-status');
+    prog.style.display = 'block';
+    stat.style.display = 'block';
+    stat.textContent = 'Menghantar gambar...';
+    bar.style.width = '30%';
+
+    var fd = new FormData();
+    fd.append('action', 'uploadImage');
+    fd.append('fileName', file.name);
+    fd.append('mimeType', file.type);
+    fd.append('base64Data', b64);
+
+    fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:fd })
+      .then(function(){
+        // no-cors: can't read response, poll via getData or just store b64 locally
+        bar.style.width = '100%';
+        stat.textContent = 'Gambar dihantar ke server ✓';
+        // Fallback: store as data URL locally since no-cors blocks response
+        callback(b64full);
+      })
+      .catch(function(){
+        stat.textContent = 'Upload gagal — gambar disimpan lokal';
+        callback(b64full);
+      });
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── DRAG & DROP ───────────────────────────────────────────────────
+(function(){
+  var dz = document.getElementById('drop-zone');
+  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', function(){ dz.classList.remove('drag-over'); });
+  dz.addEventListener('drop', function(e){
+    e.preventDefault(); dz.classList.remove('drag-over');
+    var f = e.dataTransfer.files[0];
+    if(f && f.type.startsWith('image/')) onFileSelect(f);
+    else toast('Sila drop fail gambar sahaja');
+  });
+})();
+
+// ── FORM ──────────────────────────────────────────────────────────
 function populateWorkerDrop(){
   var sel=document.getElementById('f-worker-sel'), cur=sel.value;
   sel.innerHTML='<option value="">— Select Worker —</option>';
@@ -678,44 +737,67 @@ function todayStr(){ return new Date().toISOString().split('T')[0]; }
 function resetForm(){
   document.getElementById('f-worker-sel').value='';
   document.getElementById('f-cust').value='';
+  document.getElementById('f-phone').value='';
   document.getElementById('f-addr').value='';
   document.getElementById('f-cat').value='Google';
   document.getElementById('f-status').value='Done';
   document.getElementById('f-date').value=todayStr();
   document.getElementById('f-notes').value='';
   document.getElementById('branch-tag-wrap').style.display='none';
+  removeImage();
 }
 
 function submitReview(){
   var wname=document.getElementById('f-worker-sel').value;
   var cust=document.getElementById('f-cust').value.trim();
-  var addr=document.getElementById('f-addr').value.trim();
-  var cat=document.getElementById('f-cat').value;
-  var status=document.getElementById('f-status').value;
-  var date=document.getElementById('f-date').value||todayStr();
-  var notes=document.getElementById('f-notes').value.trim();
-  if(!wname||!cust){ toast('Please fill in worker and customer name'); return; }
-  var review={
-    id:Date.now().toString(), workerName:wname,
-    branch:localDB.workerBranches[wname]||'',
-    customerName:cust, customerAddr:addr,
-    category:cat, status:status, date:date, notes:notes
-  };
-  if(editId){
-    var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
-    if(idx!==-1){ review.id=editId; localDB.reviews[idx]=review; }
-    cancelEdit(); toast('Review updated \u2713');
-  } else {
-    localDB.reviews.push(review);
-    resetForm(); toast('Review saved \u2713');
-  }
-  saveLocalDB(); renderReviewList();
-  // Sync to Sheets
-  if(SCRIPT_URL.indexOf('PASTE')===-1){
+  if(!wname||!cust){ toast('Sila isi nama worker dan customer'); return; }
+
+  var btn = document.getElementById('btn-save');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  function doSave(imgUrl){
+    var review={
+      id: editId || Date.now().toString(),
+      workerName: wname,
+      branch: localDB.workerBranches[wname]||'',
+      customerName: cust,
+      phone: document.getElementById('f-phone').value.trim(),
+      customerAddr: document.getElementById('f-addr').value.trim(),
+      category: document.getElementById('f-cat').value,
+      status: document.getElementById('f-status').value,
+      date: document.getElementById('f-date').value||todayStr(),
+      notes: document.getElementById('f-notes').value.trim(),
+      imageUrl: imgUrl||''
+    };
+
+    if(editId){
+      var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
+      if(idx!==-1) localDB.reviews[idx]=review;
+      cancelEdit(); toast('Review dikemaskini ✓');
+    } else {
+      localDB.reviews.push(review);
+      resetForm(); toast('Review disimpan ✓');
+    }
+    saveLocalDB(); renderReviewList();
+
+    // Sync to Sheets
     var fd=new FormData();
     fd.append('action','logReview');
     fd.append('data',JSON.stringify(review));
     fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:fd}).catch(function(){});
+
+    btn.disabled = false;
+    btn.textContent = editId ? 'Update' : 'Save Review';
+  }
+
+  if(pendingImageFile){
+    uploadImageToServer(pendingImageFile, function(url){
+      pendingImageUrl = url;
+      doSave(url);
+    });
+  } else {
+    doSave(pendingImageUrl);
   }
 }
 
@@ -724,11 +806,20 @@ function startEdit(id){
   editId=id;
   document.getElementById('f-worker-sel').value=r.workerName; onWorkerChange();
   document.getElementById('f-cust').value=r.customerName;
+  document.getElementById('f-phone').value=r.phone||'';
   document.getElementById('f-addr').value=r.customerAddr||'';
   document.getElementById('f-cat').value=r.category;
   document.getElementById('f-status').value=r.status;
   document.getElementById('f-date').value=r.date;
   document.getElementById('f-notes').value=r.notes||'';
+  // Restore image if any
+  if(r.imageUrl){
+    pendingImageUrl = r.imageUrl;
+    document.getElementById('img-preview').src = r.imageUrl;
+    document.getElementById('img-preview-name').textContent = 'Gambar sedia ada';
+    document.getElementById('img-preview-wrap').style.display = 'block';
+    document.getElementById('drop-zone').style.display = 'none';
+  }
   document.getElementById('form-title-el').textContent='Edit Review';
   document.getElementById('edit-alert').classList.add('on');
   document.getElementById('btn-cancel-form').style.display='block';
@@ -743,6 +834,7 @@ function cancelEdit(){
   document.getElementById('edit-alert').classList.remove('on');
   document.getElementById('btn-cancel-form').style.display='none';
   document.getElementById('btn-save').textContent='Save Review';
+  document.getElementById('btn-save').disabled=false;
   resetForm();
 }
 
@@ -752,73 +844,114 @@ function deleteReview(id){
   saveLocalDB(); renderReviewList(); toast('Review deleted');
 }
 
-// ══════════════════════════════════
-// REVIEW LIST
-// ══════════════════════════════════
+// ── REVIEW LIST (grouped by worker) ──────────────────────────────
 function renderReviewList(){
   var search=(document.getElementById('rv-search').value||'').toLowerCase();
   var fCat=document.getElementById('rv-cat').value;
   var fStat=document.getElementById('rv-status').value;
+
   var filtered=localDB.reviews.filter(function(r){
     if(fCat&&r.category!==fCat) return false;
     if(fStat&&r.status!==fStat) return false;
     if(search&&!(r.customerName||'').toLowerCase().includes(search)&&
        !(r.workerName||'').toLowerCase().includes(search)&&
-       !(r.customerAddr||'').toLowerCase().includes(search)) return false;
+       !(r.customerAddr||'').toLowerCase().includes(search)&&
+       !(r.phone||'').toLowerCase().includes(search)) return false;
     return true;
   }).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');});
+
   document.getElementById('review-count').textContent=filtered.length+' reviews';
+
   if(filtered.length===0){
     document.getElementById('rv-list').innerHTML='<div class="empty-msg">No reviews found.</div>';
     return;
   }
-  document.getElementById('rv-list').innerHTML=filtered.map(function(r){
-    var sc=r.status==='Done'?'done':r.status==='Pending'?'pend':'fup';
-    var cc=CAT_CLS[r.category]||'g';
-    return '<div class="rrow">'+
-      '<span class="rcat '+cc+'">'+(r.category||'—')+'</span>'+
-      '<div class="rmain">'+
-        '<div class="rcust">'+esc(r.customerName)+'</div>'+
-        (r.customerAddr?'<div class="raddr">&#128205; '+esc(r.customerAddr)+'</div>':'')+
-        '<div class="rmeta">'+esc(r.date)+' &middot; '+esc(r.workerName)+(r.branch?' &middot; '+esc(r.branch):'')+'</div>'+
-        (r.notes?'<div class="rnotes">'+esc(r.notes)+'</div>':'')+
+
+  // Group by worker
+  var groups={};
+  var order=[];
+  filtered.forEach(function(r){
+    var wn=r.workerName||'Unknown';
+    if(!groups[wn]){ groups[wn]=[]; order.push(wn); }
+    groups[wn].push(r);
+  });
+
+  var html='';
+  order.forEach(function(wname){
+    var reviews=groups[wname];
+    var ci=avatarIdx(wname);
+    var gid='wg_'+wname.replace(/\s+/g,'_');
+    html+='<div class="wgroup">'+
+      '<div class="wgroup-hdr" onclick="toggleGroup(\''+gid+'\')">'+
+        '<div class="wgroup-left">'+
+          '<div class="wgroup-avatar" style="background:'+AVBG[ci]+';color:'+AVTXT[ci]+'">'+ini(wname)+'</div>'+
+          '<span class="wgroup-name">'+esc(wname)+'</span>'+
+          '<span class="wgroup-count">'+reviews.length+' review'+(reviews.length>1?'s':'')+'</span>'+
+        '</div>'+
+        '<span class="wgroup-chevron" id="chev_'+gid+'">&#9660;</span>'+
       '</div>'+
-      '<span class="rstatus '+sc+'">'+r.status+'</span>'+
-      '<div class="racts">'+
-        '<button class="bedit" onclick="startEdit(\''+r.id+'\')">Edit</button>'+
-        '<button class="bdel" onclick="deleteReview(\''+r.id+'\')">Del</button>'+
+      '<div class="wgroup-body open" id="'+gid+'">'+
+        reviews.map(function(r){
+          var sc=r.status==='Done'?'done':r.status==='Pending'?'pend':'fup';
+          var cc=CAT_CLS[r.category]||'g';
+          return '<div class="rrow">'+
+            '<span class="rcat '+cc+'">'+(r.category||'—')+'</span>'+
+            '<div class="rmain">'+
+              '<div class="rcust">'+esc(r.customerName)+'</div>'+
+              (r.phone?'<div class="rphone">&#128222; '+esc(r.phone)+'</div>':'')+
+              (r.customerAddr?'<div class="raddr">&#128205; '+esc(r.customerAddr)+'</div>':'')+
+              '<div class="rmeta">'+esc(r.date)+(r.branch?' &middot; '+esc(r.branch):'')+'</div>'+
+              (r.notes?'<div class="rnotes">'+esc(r.notes)+'</div>':'')+
+            '</div>'+
+            (r.imageUrl?'<img class="rimg-thumb" src="'+r.imageUrl+'" alt="evidence" onclick="openLightbox(\''+r.imageUrl.replace(/'/g,"\\'")+'\')" loading="lazy">':'')+
+            '<span class="rstatus '+sc+'">'+r.status+'</span>'+
+            '<div class="racts">'+
+              '<button class="bedit" onclick="startEdit(\''+r.id+'\')">Edit</button>'+
+              '<button class="bdel" onclick="deleteReview(\''+r.id+'\')">Del</button>'+
+            '</div>'+
+          '</div>';
+        }).join('')+
       '</div>'+
     '</div>';
-  }).join('');
+  });
+
+  document.getElementById('rv-list').innerHTML=html;
 }
 
-// ══════════════════════════════════
-// EXPORT CSV
-// ══════════════════════════════════
+function toggleGroup(gid){
+  var body=document.getElementById(gid);
+  var chev=document.getElementById('chev_'+gid);
+  var isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  chev.classList.toggle('open',!isOpen);
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────────────────
+function openLightbox(url){
+  document.getElementById('lightbox-img').src=url;
+  document.getElementById('lightbox').classList.add('on');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('on');
+  document.getElementById('lightbox-img').src='';
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────
 function exportCSV(){
-  var rows=[['Date','Worker','Branch','Customer','Address','Category','Status','Notes']];
+  var rows=[['Date','Worker','Branch','Customer','Phone','Address','Category','Status','Notes','ImageURL']];
   localDB.reviews.slice().sort(function(a,b){return b.date.localeCompare(a.date);}).forEach(function(r){
-    rows.push([r.date,r.workerName,r.branch,r.customerName,r.customerAddr||'',r.category,r.status,r.notes||'']);
+    rows.push([r.date,r.workerName,r.branch,r.customerName,r.phone||'',r.customerAddr||'',r.category,r.status,r.notes||'',r.imageUrl||'']);
   });
   var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c||'').replace(/"/g,'""')+'"';}).join(',');}).join('\n');
   var a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
   a.download='DCClean_Reviews_'+todayStr()+'.csv';
-  a.click(); toast('CSV exported \u2713');
+  a.click(); toast('CSV exported ✓');
 }
 
-// ══════════════════════════════════
-// SETTINGS
-// ══════════════════════════════════
-function openSettings(){
-  document.getElementById('spanel').classList.add('on');
-  document.getElementById('overlay').classList.add('on');
-  renderSWorkers(); renderSBranches();
-}
-function closeSettings(){
-  document.getElementById('spanel').classList.remove('on');
-  document.getElementById('overlay').classList.remove('on');
-}
+// ── SETTINGS ──────────────────────────────────────────────────────
+function openSettings(){ document.getElementById('spanel').classList.add('on'); document.getElementById('overlay').classList.add('on'); renderSWorkers(); renderSBranches(); }
+function closeSettings(){ document.getElementById('spanel').classList.remove('on'); document.getElementById('overlay').classList.remove('on'); }
 function switchSTab(t){
   ['workers','branches'].forEach(function(x){
     document.getElementById('stab-'+x).classList.toggle('on',x===t);
@@ -827,10 +960,7 @@ function switchSTab(t){
 }
 function renderSWorkers(){
   var w=DATA.workers||[];
-  if(w.length===0){
-    document.getElementById('settings-workers-list').innerHTML='<div class="empty-list">Click Refresh first to load workers.</div>';
-    return;
-  }
+  if(w.length===0){ document.getElementById('settings-workers-list').innerHTML='<div class="empty-list">Click Refresh first to load workers.</div>'; return; }
   document.getElementById('settings-workers-list').innerHTML=w.slice().sort(function(a,b){return a.name.localeCompare(b.name);}).map(function(wk){
     var branch=localDB.workerBranches[wk.name]||'';
     var opts='<option value="">— No Branch —</option>'+localDB.branches.map(function(b){return '<option value="'+esc(b)+'"'+(branch===b?' selected':'')+'>'+esc(b)+'</option>';}).join('');
@@ -852,37 +982,26 @@ function addBranch(){
   if(!nm||localDB.branches.includes(nm)) return;
   localDB.branches.push(nm); inp.value='';
   saveLocalDB(); renderSBranches(); renderSWorkers(); renderBranchTab();
-  toast('Branch added \u2713');
+  toast('Branch added ✓');
 }
 function removeBranch(name){
   var assigned=Object.keys(localDB.workerBranches).filter(function(n){return localDB.workerBranches[n]===name;});
-  if(assigned.length>0){
-    if(!confirm('Branch "'+name+'" has '+assigned.length+' assigned workers. Delete anyway?')) return;
-    assigned.forEach(function(n){ delete localDB.workerBranches[n]; });
-  }
+  if(assigned.length>0){ if(!confirm('Branch "'+name+'" has '+assigned.length+' assigned workers. Delete anyway?')) return; assigned.forEach(function(n){ delete localDB.workerBranches[n]; }); }
   localDB.branches=localDB.branches.filter(function(b){return b!==name;});
   saveLocalDB(); renderSBranches(); renderSWorkers(); renderAll();
 }
 
-// ══════════════════════════════════
-// TAB NAVIGATION
-// ══════════════════════════════════
+// ── TABS ──────────────────────────────────────────────────────────
 function showTab(n){
-  [0,1,2,3,4].forEach(function(i){
-    document.getElementById('tab'+i).style.display=i===n?'':'none';
-  });
+  [0,1,2,3,4].forEach(function(i){ document.getElementById('tab'+i).style.display=i===n?'':'none'; });
   document.querySelectorAll('.tab').forEach(function(el,i){ el.classList.toggle('active',i===n); });
 }
 
-// ══════════════════════════════════
-// UTILITIES
-// ══════════════════════════════════
+// ── UTILS ─────────────────────────────────────────────────────────
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); setTimeout(function(){t.classList.remove('on');},2400); }
 
-// ══════════════════════════════════
-// INIT
-// ══════════════════════════════════
+// ── INIT ──────────────────────────────────────────────────────────
 loadLocalDB();
 document.getElementById('f-date').value=todayStr();
 loadData();
