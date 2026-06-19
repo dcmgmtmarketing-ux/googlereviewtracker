@@ -776,9 +776,9 @@ function submitReview(){
     id:Date.now().toString(), workerName:wname,
     branch:localDB.workerBranches[wname]||'',
     customerName:cust, customerAddr:addr,
+    phone:document.getElementById('f-phone').value.trim(),
     category:cat, status:status, date:date, notes:notes
   };
-
   if(editId){
     var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
     if(idx!==-1){ review.id=editId; localDB.reviews[idx]=review; }
@@ -803,50 +803,6 @@ function submitReview(){
     document.head.appendChild(sc);
   }
 }
-
-  function doSave(imgUrl){
-    var review={
-      id: editId || Date.now().toString(),
-      workerName: wname,
-      branch: localDB.workerBranches[wname]||'',
-      customerName: cust,
-      phone: document.getElementById('f-phone').value.trim(),
-      customerAddr: document.getElementById('f-addr').value.trim(),
-      category: document.getElementById('f-cat').value,
-      status: document.getElementById('f-status').value,
-      date: document.getElementById('f-date').value||todayStr(),
-      notes: document.getElementById('f-notes').value.trim(),
-      imageUrl: imgUrl||''
-    };
-
-    if(editId){
-      var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
-      if(idx!==-1) localDB.reviews[idx]=review;
-      cancelEdit(); toast('Review dikemaskini ✓');
-    } else {
-      localDB.reviews.push(review);
-      resetForm(); toast('Review disimpan ✓');
-    }
-    saveLocalDB(); renderReviewList();
-
-    // Sync to Sheets
-    var fd=new FormData();
-    fd.append('action','logReview');
-    fd.append('data',JSON.stringify(review));
-    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:fd}).catch(function(){});
-
-    btn.disabled = false;
-    btn.textContent = editId ? 'Update' : 'Save Review';
-  }
-
-  if(pendingImageFile){
-    uploadImageToServer(pendingImageFile, function(url){
-      pendingImageUrl = url;
-      doSave(url);
-    });
-  } else {
-    doSave(pendingImageUrl);
-  }
 
 function startEdit(id){
   var r=localDB.reviews.find(function(rv){return rv.id===id;}); if(!r) return;
