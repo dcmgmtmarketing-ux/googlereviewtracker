@@ -762,7 +762,34 @@ function resetForm(){
 }
 
 function submitReview(){
- // Sync to Sheets via JSONP + reload ranking
+  var wname=document.getElementById('f-worker-sel').value;
+  var cust=document.getElementById('f-cust').value.trim();
+  var addr=document.getElementById('f-addr').value.trim();
+  var cat=document.getElementById('f-cat').value;
+  var status=document.getElementById('f-status').value;
+  var date=document.getElementById('f-date').value||todayStr();
+  var notes=document.getElementById('f-notes').value.trim();
+
+  if(!wname||!cust){ toast('Please fill in worker and customer name'); return; }
+
+  var review={
+    id:Date.now().toString(), workerName:wname,
+    branch:localDB.workerBranches[wname]||'',
+    customerName:cust, customerAddr:addr,
+    category:cat, status:status, date:date, notes:notes
+  };
+
+  if(editId){
+    var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
+    if(idx!==-1){ review.id=editId; localDB.reviews[idx]=review; }
+    cancelEdit(); toast('Review updated \u2713');
+  } else {
+    localDB.reviews.push(review);
+    resetForm(); toast('Review saved \u2713');
+  }
+
+  saveLocalDB(); renderReviewList();
+
   if(SCRIPT_URL.indexOf('PASTE')===-1){
     var cb='_gcblog'+Date.now();
     var sc=document.createElement('script');
@@ -776,9 +803,6 @@ function submitReview(){
     document.head.appendChild(sc);
   }
 }
-  var btn = document.getElementById('btn-save');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
 
   function doSave(imgUrl){
     var review={
