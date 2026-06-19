@@ -631,21 +631,30 @@ function renderAll(){
 // ── METRICS ───────────────────────────────────────────────────────
 function renderMetrics(){
   var w=DATA.workers||[], tg=DATA.targets||{};
-  var tR=w.reduce(function(s,x){return s+(x.review||0);},0);
-  var tV=w.reduce(function(s,x){return s+(x.video||0);},0);
-  var tM=w.reduce(function(s,x){return s+(x.mattPro||0)+(x.mattSel||0);},0);
-  var tRc=w.reduce(function(s,x){return s+(x.recurring||0);},0);
+  var tTotal=w.reduce(function(s,x){return s+(x.review||0)+(x.video||0)+(x.mattPro||0)+(x.mattSel||0)+(x.recurring||0)+(x.daily||0)+(x.newSvc||0);},0);
   var tRM=w.reduce(function(s,x){return s+(x.total||0);},0);
-  var saR=tg.review?tg.review.target:1;
-  var saV=tg.video?tg.video.target:1;
-  var saM=((tg.mattPro?tg.mattPro.target:0)+(tg.mattSel?tg.mattSel.target:0))||1;
-  var saRc=tg.recurring?tg.recurring.target:1;
-  function pct(v,s){return Math.min(100,Math.round(v/s*100));}
+
+  function branchReview(bname){
+    return w.filter(function(wk){return localDB.workerBranches[wk.name]===bname;})
+            .reduce(function(s,wk){return s+(wk.review||0)+(wk.video||0);},0);
+  }
+  function branchPts(bname){
+    return w.filter(function(wk){return localDB.workerBranches[wk.name]===bname;})
+            .reduce(function(s,wk){return s+(wk.pts||0);},0);
+  }
+
+  var branches = localDB.branches.slice(0,3); // DC Clean, Hawkyz, Kurina
+  var colors = ['#1D9E75','#2563EB','#7C3AED'];
+
+  var branchCards = branches.map(function(b,i){
+    var pts = branchPts(b);
+    var rv  = branchReview(b);
+    return '<div class="metric" style="--mc:'+colors[i]+'"><div class="metric-label">'+esc(b)+'</div><div class="metric-val">'+pts+'</div><div class="metric-sub">'+rv+' reviews</div><div class="metric-bar"><div class="mbar" style="width:'+Math.min(100,Math.round(pts/Math.max(tTotal||1,1)*100))+'%;background:'+colors[i]+'"></div></div></div>';
+  }).join('');
+
   document.getElementById('metrics').innerHTML=
-    '<div class="metric" style="--mc:#1D9E75"><div class="metric-label">Review</div><div class="metric-val">'+tR+'</div><div class="metric-sub">Target '+saR+'</div><div class="metric-bar"><div class="mbar" style="width:'+pct(tR,saR)+'%;background:#1D9E75"></div></div></div>'+
-    '<div class="metric" style="--mc:#2563EB"><div class="metric-label">Video</div><div class="metric-val">'+tV+'</div><div class="metric-sub">Target '+saV+'</div><div class="metric-bar"><div class="mbar" style="width:'+pct(tV,saV)+'%;background:#2563EB"></div></div></div>'+
-    '<div class="metric" style="--mc:#B45309"><div class="metric-label">Mattress</div><div class="metric-val">'+tM+'</div><div class="metric-sub">Target '+saM+'</div><div class="metric-bar"><div class="mbar" style="width:'+pct(tM,saM)+'%;background:#B45309"></div></div></div>'+
-    '<div class="metric" style="--mc:#7C3AED"><div class="metric-label">Recurring</div><div class="metric-val">'+tRc+'</div><div class="metric-sub">Target '+saRc+'</div><div class="metric-bar"><div class="mbar" style="width:'+pct(tRc,saRc)+'%;background:#7C3AED"></div></div></div>'+
+    '<div class="metric" style="--mc:#0F6E56"><div class="metric-label">Total</div><div class="metric-val">'+tTotal+'</div><div class="metric-sub">semua aktiviti</div></div>'+
+    branchCards+
     '<div class="metric" style="--mc:#DC2626"><div class="metric-label">Ganjaran</div><div class="metric-val" style="font-size:17px">RM'+tRM.toLocaleString()+'</div><div class="metric-sub">'+(w.length)+' pekerja</div></div>';
 }
 
