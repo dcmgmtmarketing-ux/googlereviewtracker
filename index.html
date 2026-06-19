@@ -823,7 +823,6 @@ function submitReview(){
   } else {
     doSave(pendingImageUrl);
   }
-}
 
 function startEdit(id){
   var r=localDB.reviews.find(function(rv){return rv.id===id;}); if(!r) return;
