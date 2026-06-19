@@ -466,8 +466,11 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 <div class="spanel" id="spanel">
   <div class="shdr">
     <h2>&#9881; Settings</h2>
-    <button class="sclose" onclick="closeSettings()">&#215;</button>
-  </div>
+    <div style="display:flex;gap:8px;align-items:center">
+        <button onclick="syncBranchAssignments()" style="padding:5px 12px;background:#1D9E75;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">&#8593; Sync</button>
+        <button class="sclose" onclick="closeSettings()">&#215;</button>
+    </div>
+</div>
   <div class="stabs">
     <div class="stab on" id="stab-workers" onclick="switchSTab('workers')">Workers</div>
     <div class="stab" id="stab-branches" onclick="switchSTab('branches')">Branches</div>
@@ -617,11 +620,12 @@ function loadData(){
   document.getElementById('lb').innerHTML='<div class="loading"><div class="sw"></div>Mengambil data...</div>';
   var cb='_gcb'+Date.now();
   var sc=document.createElement('script');
-  window[cb]=function(d){ DATA=d; renderAll(); delete window[cb]; if(sc.parentNode) sc.parentNode.removeChild(sc); loadReviews(); };
-  sc.onerror=function(){ document.getElementById('lb').innerHTML='<div class="loading">Gagal sambung. Semak SCRIPT_URL &amp; deployment.</div>'; delete window[cb]; };
-  sc.src=SCRIPT_URL+'?action=getData&callback='+cb;
-  document.head.appendChild(sc);
-}
+  window[cb]=function(d){ 
+  DATA=d; 
+  delete window[cb]; 
+  if(sc.parentNode) sc.parentNode.removeChild(sc); 
+  loadBranchAssignments(); // ← tukar dari loadReviews()
+};
 function loadReviews(){
   var cb='_rvcb'+Date.now();
   var sc=document.createElement('script');
@@ -638,7 +642,42 @@ function loadReviews(){
   sc.src=SCRIPT_URL+'?action=getReviews&callback='+cb;
   document.head.appendChild(sc);
 }
+function loadBranchAssignments(){
+  var cb='_bacb'+Date.now();
+  var sc=document.createElement('script');
+  window[cb]=function(d){
+    delete window[cb];
+    if(sc.parentNode) sc.parentNode.removeChild(sc);
+    if(d && d.ok){
+      if(d.branches && d.branches.length>0) localDB.branches=d.branches;
+      if(d.assignments) localDB.workerBranches=d.assignments;
+      saveLocalDB();
+      renderAll();
+      loadReviews();
+    }
+  };
+  sc.onerror=function(){ delete window[cb]; };
+  sc.src=SCRIPT_URL+'?action=getBranchAssignments&callback='+cb;
+  document.head.appendChild(sc);
+}
 
+function syncBranchAssignments(){
+  var cb='_bscb'+Date.now();
+  var sc=document.createElement('script');
+  var payload = {
+    branches: localDB.branches,
+    assignments: localDB.workerBranches
+  };
+  window[cb]=function(d){
+    delete window[cb];
+    if(sc.parentNode) sc.parentNode.removeChild(sc);
+    if(d && d.ok) toast('Branch settings synced ✓');
+    else toast('Sync failed');
+  };
+  sc.onerror=function(){ delete window[cb]; toast('Sync failed'); };
+  sc.src=SCRIPT_URL+'?action=saveBranchAssignments&data='+encodeURIComponent(JSON.stringify(payload))+'&callback='+cb;
+  document.head.appendChild(sc);
+}
 function renderAll(){
   renderMetrics(); renderLeaderboard(); renderBranchTab();
   renderTargets(); populateWorkerDrop(); renderReviewList();
