@@ -762,10 +762,20 @@ function resetForm(){
 }
 
 function submitReview(){
-  var wname=document.getElementById('f-worker-sel').value;
-  var cust=document.getElementById('f-cust').value.trim();
-  if(!wname||!cust){ toast('Sila isi nama worker dan customer'); return; }
-
+ // Sync to Sheets via JSONP + reload ranking
+  if(SCRIPT_URL.indexOf('PASTE')===-1){
+    var cb='_gcblog'+Date.now();
+    var sc=document.createElement('script');
+    window[cb]=function(r){
+      delete window[cb];
+      if(sc.parentNode) sc.parentNode.removeChild(sc);
+      loadData();
+    };
+    sc.onerror=function(){ delete window[cb]; };
+    sc.src=SCRIPT_URL+'?action=logReview&data='+encodeURIComponent(JSON.stringify(review))+'&callback='+cb;
+    document.head.appendChild(sc);
+  }
+}
   var btn = document.getElementById('btn-save');
   btn.disabled = true;
   btn.textContent = 'Saving...';
