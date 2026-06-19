@@ -479,7 +479,7 @@ header{position:relative;color:#fff;overflow:hidden;background:var(--navy);paddi
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLnvXf9aGCHrs-77uGzlD9UGVZs-n1P-jybyuvYJrkPBOLqyhm5sVt0__u4Nosp-8/exec';
-
+  
 var TL={review:"Google/FB Review",video:"Video Testimoni",mattPro:"Mattress (promote)",mattSel:"Mattress (selesai)",recurring:"Recurring",daily:"Daily/Contract",newSvc:"New Service"};
 var TC={review:"#1D9E75",video:"#2563EB",mattPro:"#B45309",mattSel:"#B45309",recurring:"#7C3AED",daily:"#DC2626",newSvc:"#0F6E56"};
 var AVBG=["#E1F5EE","#EFF6FF","#FEF3C7","#FEE2E2","#EDE9FE","#E0F2FE"];
@@ -491,6 +491,21 @@ var editId = null;
 var pendingImageFile = null;
 var pendingImageUrl  = '';
 var localDB = { workerBranches:{}, branches:['DC Clean','Hawkyz','Kurina'], reviews:[] };
+  
+// ── OPTIMISTIC LOCAL COUNT UPDATE ────────────────────────────────
+function updateLocalCount(workerName, category, delta){
+  var fieldMap={
+    'Google':'review','Facebook':'review',
+    'Video':'video','Mattress':'mattPro'
+  };
+  var field=fieldMap[category]||'review';
+  var w=(DATA.workers||[]).find(function(x){return x.name===workerName;});
+  if(w){
+    w[field]=Math.max(0,(w[field]||0)+delta);
+    renderLeaderboard();
+    renderMetrics();
+  }
+}
 
 // ── LOCAL DB ──────────────────────────────────────────────────────
 function loadLocalDB(){
@@ -780,11 +795,18 @@ function submitReview(){
     category:cat, status:status, date:date, notes:notes
   };
   if(editId){
+    var old=localDB.reviews.find(function(r){return r.id===editId;});
+    // Kalau category bertukar, update count lama dan baru
+    if(old&&old.category!==cat){
+      updateLocalCount(old.workerName, old.category, -1);
+      updateLocalCount(wname, cat, 1);
+    }
     var idx=localDB.reviews.findIndex(function(r){return r.id===editId;});
     if(idx!==-1){ review.id=editId; localDB.reviews[idx]=review; }
     cancelEdit(); toast('Review updated \u2713');
   } else {
     localDB.reviews.push(review);
+    updateLocalCount(wname, cat, 1); // ← update ranking terus
     resetForm(); toast('Review saved \u2713');
   }
 
@@ -843,10 +865,12 @@ function cancelEdit(){
 
 function deleteReview(id){
   if(!confirm('Delete this review?')) return;
-  localDB.reviews=localDB.reviews.filter(function(r){return r.id!==id;});
+  var r=localDB.reviews.find(function(rv){return rv.id===id;});
+  if(r) updateLocalCount(r.workerName, r.category, -1); // ← update ranking terus
+  localDB.reviews=localDB.reviews.filter(function(rv){return rv.id!==id;});
   saveLocalDB(); renderReviewList(); toast('Review deleted');
 }
-
+  
 // ── REVIEW LIST (grouped by worker) ──────────────────────────────
 function renderReviewList(){
   var search=(document.getElementById('rv-search').value||'').toLowerCase();
