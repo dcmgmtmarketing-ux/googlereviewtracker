@@ -951,7 +951,7 @@ function submitReview(){
       if(r && r.ok){
         toast('Saved & synced to Sheets ✓');
         // Reload dari Sheets — ranking update dari data sebenar
-        loadData();
+        loadReviews();
       } else {
         toast('Saved locally. Sheets sync failed.');
       }
