@@ -671,32 +671,46 @@ function uploadImageToServer(file, callback){
   reader.onload = function(e){
     var b64full = e.target.result;
     var b64 = b64full.split(',')[1];
-    var prog = document.getElementById('upload-progress');
-    var bar  = document.getElementById('upload-bar');
+    
     var stat = document.getElementById('upload-status');
+    var bar  = document.getElementById('upload-bar');
+    var prog = document.getElementById('upload-progress');
     prog.style.display = 'block';
     stat.style.display = 'block';
     stat.textContent = 'Menghantar gambar...';
-    bar.style.width = '30%';
+    bar.style.width = '40%';
 
-    var fd = new FormData();
-    fd.append('action', 'uploadImage');
-    fd.append('fileName', file.name);
-    fd.append('mimeType', file.type);
-    fd.append('base64Data', b64);
+    var cb = '_imgcb' + Date.now();
+    var sc = document.createElement('script');
 
-    fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body:fd })
-      .then(function(){
-        // no-cors: can't read response, poll via getData or just store b64 locally
-        bar.style.width = '100%';
-        stat.textContent = 'Gambar dihantar ke server ✓';
-        // Fallback: store as data URL locally since no-cors blocks response
-        callback(b64full);
-      })
-      .catch(function(){
-        stat.textContent = 'Upload gagal — gambar disimpan lokal';
-        callback(b64full);
-      });
+    window[cb] = function(res){
+      delete window[cb];
+      if(sc.parentNode) sc.parentNode.removeChild(sc);
+      bar.style.width = '100%';
+      if(res && res.ok){
+        stat.textContent = 'Gambar berjaya diupload ✓';
+        callback(res.url);
+      } else {
+        stat.textContent = 'Upload gagal: ' + (res ? res.error : 'unknown');
+        callback('');
+      }
+    };
+
+    sc.onerror = function(){
+      delete window[cb];
+      stat.textContent = 'Upload gagal — semak connection';
+      callback('');
+    };
+
+    // Hantar via GET dengan base64 dalam URL
+    var params = '?action=uploadImage' +
+      '&fileName=' + encodeURIComponent(file.name) +
+      '&mimeType=' + encodeURIComponent(file.type) +
+      '&base64Data=' + encodeURIComponent(b64) +
+      '&callback=' + cb;
+
+    sc.src = SCRIPT_URL + params;
+    document.head.appendChild(sc);
   };
   reader.readAsDataURL(file);
 }
