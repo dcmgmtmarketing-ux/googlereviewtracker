@@ -621,11 +621,18 @@ function loadData(){
   var cb='_gcb'+Date.now();
   var sc=document.createElement('script');
   window[cb]=function(d){ 
-  DATA=d; 
-  delete window[cb]; 
-  if(sc.parentNode) sc.parentNode.removeChild(sc); 
-  loadBranchAssignments(); // ← tukar dari loadReviews()
-};
+    DATA=d; 
+    delete window[cb]; 
+    if(sc.parentNode) sc.parentNode.removeChild(sc); 
+    loadBranchAssignments();
+  };
+  sc.onerror=function(){ 
+    delete window[cb]; 
+    document.getElementById('lb').innerHTML='<div class="loading">Gagal connect. Refresh balik.</div>'; 
+  };
+  sc.src=SCRIPT_URL+'?action=getData&callback='+cb;
+  document.head.appendChild(sc);
+}
 function loadReviews(){
   var cb='_rvcb'+Date.now();
   var sc=document.createElement('script');
