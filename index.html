@@ -682,7 +682,7 @@ function syncBranchAssignments(){
     else toast('Sync failed');
   };
   sc.onerror=function(){ delete window[cb]; toast('Sync failed'); };
-  sc.src=SCRIPT_+'?action=saveBranchAssignments&data='+encodeURIComponent(JSON.stringify(payload))+'&callback='+cb;
+  sc.src=SCRIPT_URL+'?action=saveBranchAssignments&data='+encodeURIComponent(JSON.stringify(payload))+'&callback='+cb;
   document.head.appendChild(sc);
 }
 function renderAll(){
@@ -842,7 +842,7 @@ function onFileSelect(file){
       else if(h > MAX){ w = Math.round(w*MAX/h); h = MAX; }
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      pendingImage = canvas.toData('image/jpeg', 0.7);
+      pendingImage = canvas.toDataURL('image/jpeg', 0.7);
 
       document.getElementById('img-preview').src = pendingImage;
       document.getElementById('img-preview-name').textContent = file.name;
@@ -851,7 +851,7 @@ function onFileSelect(file){
     };
     img.src = e.target.result;
   };
-  reader.readAsData(file);
+  reader.readAsDataURL(file);
 }
 
 function removeImage(){
@@ -887,7 +887,7 @@ function uploadImageToServer(file, callback){
       bar.style.width = '100%';
       if(res && res.ok){
         stat.textContent = 'Gambar berjaya diupload ✓';
-        callback(res.url1);
+        callback(res.url);
       } else {
         stat.textContent = 'Upload gagal: ' + (res ? res.error : 'unknown');
         callback('');
