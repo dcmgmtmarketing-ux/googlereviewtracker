@@ -659,11 +659,23 @@ function loadBranchAssignments(){
       if(d.branches && d.branches.length>0) localDB.branches=d.branches;
       if(d.assignments) localDB.workerBranches=d.assignments;
       saveLocalDB();
+    }
+    renderAll();      // ← render sama ada berjaya atau tak
+    loadReviews();
+  };
+  sc.onerror=function(){ 
+    delete window[cb]; 
+    renderAll();      // ← render walaupun error
+    loadReviews();
+  };
+  // Tambah timeout sebagai safety net
+  setTimeout(function(){
+    if(window[cb]){
+      delete window[cb];
       renderAll();
       loadReviews();
     }
-  };
-  sc.onerror=function(){ delete window[cb]; };
+  }, 5000);
   sc.src=SCRIPT_URL+'?action=getBranchAssignments&callback='+cb;
   document.head.appendChild(sc);
 }
