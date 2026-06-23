@@ -887,7 +887,7 @@ function uploadImageToServer(file, callback){
       bar.style.width = '100%';
       if(res && res.ok){
         stat.textContent = 'Gambar berjaya diupload ✓';
-        callback(res.);
+        callback(res.url1);
       } else {
         stat.textContent = 'Upload gagal: ' + (res ? res.error : 'unknown');
         callback('');
